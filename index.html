@@ -1,0 +1,1822 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bishal Dutta — Creative Developer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --ink: #0a0a0f;
+        --paper: #f5f3ee;
+        --accent: #ff3f00;
+        --accent2: #0057ff;
+        --muted: #8a8780;
+        --card-bg: #ffffff;
+        --border: rgba(10, 10, 15, 0.1);
+        --about-bg: #f0ede6;
+      }
+      [data-theme="dark"] {
+        --ink: #f5f3ee;
+        --paper: #0a0a0f;
+        --card-bg: #121216;
+        --border: rgba(245, 243, 238, 0.1);
+        --about-bg: #0a0a0f;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Syne", sans-serif;
+        background: var(--paper);
+        color: var(--ink);
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* CUSTOM CURSOR */
+      .cursor {
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        background: var(--accent);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.08s ease,
+          width 0.2s ease,
+          height 0.2s ease,
+          background 0.2s ease;
+      }
+      .cursor-ring {
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        border: 1.5px solid var(--accent);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.18s ease,
+          width 0.2s ease,
+          height 0.2s ease,
+          opacity 0.2s ease;
+        opacity: 0.5;
+      }
+      body:hover .cursor-ring {
+        opacity: 0.5;
+      }
+      .cursor.hovering {
+        width: 24px;
+        height: 24px;
+        background: var(--accent2);
+      }
+      .cursor-ring.hovering {
+        width: 60px;
+        height: 60px;
+        border-color: var(--accent2);
+        opacity: 0.3;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 1.5rem 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background: rgba(245, 243, 238, 0.85);
+        border-bottom: 1px solid var(--border);
+      }
+      .logo {
+        font-size: 1.1rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        text-decoration: none;
+        color: var(--ink);
+      }
+      .logo span {
+        color: var(--accent);
+      }
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--muted);
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--ink);
+      }
+      .nav-cta {
+        font-family: "DM Mono", monospace;
+        font-size: 0.8rem;
+        font-weight: 500;
+        padding: 0.55rem 1.4rem;
+        border: 1.5px solid var(--ink);
+        background: transparent;
+        color: var(--ink);
+        text-decoration: none;
+        letter-spacing: 0.04em;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .nav-cta:hover {
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      /* ─── HERO ─── */
+      .hero {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        padding: 8rem 3rem 4rem;
+        gap: 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(var(--border) 1px, transparent 1px),
+          linear-gradient(90deg, var(--border) 1px, transparent 1px);
+        background-size: 60px 60px;
+        opacity: 0.5;
+        animation: gridPulse 8s ease-in-out infinite;
+      }
+      @keyframes gridPulse {
+        0%,
+        100% {
+          opacity: 0.4;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .hero-tag {
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.3s ease forwards;
+      }
+      .hero h1 {
+        font-size: clamp(3rem, 6vw, 5.5rem);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        margin-bottom: 1.5rem;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.5s ease forwards;
+      }
+      .hero h1 .line {
+        display: block;
+        overflow: hidden;
+      }
+      .hero h1 .accent {
+        color: var(--accent);
+      }
+      .hero-desc {
+        font-family: "DM Mono", monospace;
+        font-size: 0.9rem;
+        line-height: 1.8;
+        color: var(--muted);
+        max-width: 400px;
+        margin-bottom: 2.5rem;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.7s ease forwards;
+      }
+      .hero-ctas {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        opacity: 0;
+        animation: fadeUp 0.7s 0.9s ease forwards;
+      }
+      .btn-primary {
+        padding: 0.9rem 2.2rem;
+        background: var(--ink);
+        color: var(--paper);
+        font-family: "Syne", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        display: inline-block;
+        transition:
+          transform 0.2s ease,
+          background 0.2s;
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-primary::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--accent);
+        transform: translateX(-101%);
+        transition: transform 0.3s cubic-bezier(0.77, 0, 0.18, 1);
+      }
+      .btn-primary:hover::after {
+        transform: translateX(0);
+      }
+      .btn-primary span {
+        position: relative;
+        z-index: 1;
+      }
+      .btn-secondary {
+        font-family: "DM Mono", monospace;
+        font-size: 0.8rem;
+        color: var(--muted);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: color 0.2s;
+      }
+      .btn-secondary:hover {
+        color: var(--ink);
+      }
+      .btn-secondary .arrow {
+        display: inline-block;
+        transition: transform 0.2s;
+      }
+      .btn-secondary:hover .arrow {
+        transform: translateX(4px);
+      }
+
+      /* 3D CANVAS AREA */
+      .hero-visual {
+        position: relative;
+        height: 520px;
+        opacity: 0;
+        animation: fadeIn 1.2s 0.6s ease forwards;
+      }
+      canvas#hero3d {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+      .hero-badge {
+        position: absolute;
+        bottom: 2rem;
+        right: 2rem;
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        text-transform: uppercase;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.3rem;
+        z-index: 10;
+      }
+      .hero-badge .line {
+        width: 40px;
+        height: 1px;
+        background: var(--muted);
+      }
+
+      .scroll-hint {
+        position: absolute;
+        bottom: 2rem;
+        left: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: fadeIn 1s 1.5s ease forwards;
+      }
+      .scroll-dot {
+        width: 8px;
+        height: 8px;
+        border: 1.5px solid var(--muted);
+        border-radius: 50%;
+        position: relative;
+      }
+      .scroll-dot::after {
+        content: "";
+        width: 3px;
+        height: 3px;
+        background: var(--muted);
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: scrollBounce 1.5s infinite;
+      }
+      @keyframes scrollBounce {
+        0%,
+        100% {
+          transform: translate(-50%, -80%);
+          opacity: 1;
+        }
+        50% {
+          transform: translate(-50%, 20%);
+          opacity: 0.4;
+        }
+      }
+
+      /* STATS STRIP */
+      .stats-strip {
+        display: flex;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .stat-item {
+        flex: 1;
+        padding: 2.5rem 3rem;
+        border-right: 1px solid var(--border);
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .stat-item:last-child {
+        border-right: none;
+      }
+      .stat-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .stat-num {
+        font-size: 3rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        margin-bottom: 0.4rem;
+        color: var(--ink);
+      }
+      .stat-num span {
+        color: var(--accent);
+      }
+      .stat-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      /* MARQUEE */
+      .marquee-wrap {
+        overflow: hidden;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 1rem 0;
+        user-select: none;
+      }
+      .marquee-track {
+        display: flex;
+        gap: 0;
+        white-space: nowrap;
+        animation: marquee 20s linear infinite;
+      }
+      .marquee-track span {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 0 3rem;
+      }
+      .marquee-track .dot {
+        color: var(--accent);
+        font-size: 1.2rem;
+        vertical-align: middle;
+      }
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* WORK SECTION */
+      section {
+        padding: 7rem 3rem;
+      }
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 4rem;
+      }
+      .section-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.8rem;
+      }
+      .section-title {
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+      }
+      .section-link {
+        font-family: "DM Mono", monospace;
+        font-size: 0.8rem;
+        color: var(--muted);
+        text-decoration: none;
+        letter-spacing: 0.05em;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: color 0.2s;
+        white-space: nowrap;
+        align-self: flex-end;
+      }
+      .section-link:hover {
+        color: var(--ink);
+      }
+
+      /* PROJECT GRID */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5px;
+        background: var(--border);
+      }
+      .project-card {
+        background: var(--paper);
+        padding: 3rem;
+        position: relative;
+        overflow: hidden;
+        cursor: none;
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .project-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .project-card.featured {
+        grid-column: span 2;
+        padding: 4rem 3rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+      .project-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--ink);
+        transform: scaleY(0);
+        transform-origin: bottom;
+        transition: transform 0.4s cubic-bezier(0.77, 0, 0.18, 1);
+        z-index: 0;
+      }
+      .project-card:hover::before {
+        transform: scaleY(1);
+      }
+      .project-card > * {
+        position: relative;
+        z-index: 1;
+      }
+      .project-card:hover .project-num,
+      .project-card:hover .project-cat,
+      .project-card:hover .project-title,
+      .project-card:hover .project-desc,
+      .project-card:hover .project-tags span {
+        color: var(--paper);
+      }
+      .project-card:hover .project-tags span {
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+      .project-card:hover .project-visual canvas {
+        opacity: 0.7;
+      }
+
+      .project-num {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        margin-bottom: 2rem;
+        transition: color 0.4s;
+      }
+      .project-cat {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.8rem;
+        transition: color 0.4s;
+      }
+      .project-title {
+        font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        transition: color 0.4s;
+      }
+      .project-desc {
+        font-family: "DM Mono", monospace;
+        font-size: 0.82rem;
+        line-height: 1.8;
+        color: var(--muted);
+        margin-bottom: 1.5rem;
+        transition: color 0.4s;
+      }
+      .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .project-tags span {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        padding: 0.3rem 0.8rem;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        transition:
+          color 0.4s,
+          border-color 0.4s;
+      }
+      .project-visual {
+        height: 240px;
+        position: relative;
+        border: 1px solid var(--border);
+        overflow: hidden;
+        transition: border-color 0.4s;
+      }
+      .project-card:hover .project-visual {
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+      .project-visual canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+        transition: opacity 0.4s;
+      }
+
+      /* ABOUT */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 6rem;
+        align-items: center;
+      }
+      .about-image-wrap {
+        position: relative;
+        height: 500px;
+        border: 2px solid var(--ink);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .about-3d-scene {
+        width: 100%;
+        height: 100%;
+      }
+      .about-frame {
+        display: none;
+      }
+      .about-bio {
+        font-size: 1.15rem;
+        line-height: 1.75;
+        letter-spacing: -0.01em;
+        margin-bottom: 2rem;
+        color: var(--ink);
+      }
+      .about-bio strong {
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.4rem;
+        margin-top: 2rem;
+      }
+      .skill-item {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid var(--border);
+        font-family: "DM Mono", monospace;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+      .skill-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+      }
+
+      /* SERVICES */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5px;
+        background: var(--border);
+      }
+      .service-card {
+        background: var(--paper);
+        padding: 3rem 2.5rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease,
+          background 0.3s;
+      }
+      .service-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .service-card:hover {
+        background: var(--ink);
+      }
+      .service-card:hover .service-title,
+      .service-card:hover .service-desc {
+        color: var(--paper);
+      }
+      .service-card:hover .service-num {
+        color: var(--accent);
+      }
+      .service-num {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--muted);
+        margin-bottom: 2rem;
+        transition: color 0.3s;
+      }
+      .service-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 1.5rem;
+      }
+      .service-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 1rem;
+        transition: color 0.3s;
+      }
+      .service-desc {
+        font-family: "DM Mono", monospace;
+        font-size: 0.8rem;
+        line-height: 1.8;
+        color: var(--muted);
+        transition: color 0.3s;
+      }
+
+      /* CONTACT */
+      .contact-section {
+        background: #0a0a0f;
+        color: #f5f3ee;
+        padding: 8rem 3rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .contact-canvas {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.4;
+      }
+      .contact-inner {
+        position: relative;
+        z-index: 1;
+      }
+      .contact-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+      }
+      .contact-title {
+        font-size: clamp(3rem, 7vw, 7rem);
+        font-weight: 800;
+        letter-spacing: -0.05em;
+        line-height: 0.95;
+        margin-bottom: 2.5rem;
+      }
+      .contact-title .ghost {
+        -webkit-text-stroke: 1px rgba(245, 243, 238, 0.3);
+        color: transparent;
+      }
+      .contact-sub {
+        font-family: "DM Mono", monospace;
+        font-size: 0.9rem;
+        color: rgba(245, 243, 238, 0.5);
+        margin-bottom: 3rem;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.8;
+      }
+      .contact-email {
+        font-size: clamp(1.2rem, 2.5vw, 2rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: #f5f3ee;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        border-bottom: 1px solid rgba(245, 243, 238, 0.2);
+        padding-bottom: 0.3rem;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+      }
+      .contact-email:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+      .social-row {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 4rem;
+      }
+      .social-link {
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(245, 243, 238, 0.4);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .social-link:hover {
+        color: #f5f3ee;
+      }
+
+      /* FOOTER */
+      footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 3rem;
+        border-top: 1px solid var(--border);
+        background: var(--paper);
+      }
+      .footer-copy {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--muted);
+        letter-spacing: 0.06em;
+      }
+      .footer-copy span {
+        color: var(--accent);
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 900px) {
+        nav {
+          padding: 1.2rem 1.5rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          padding: 7rem 1.5rem 3rem;
+          gap: 3rem;
+        }
+        .hero-visual {
+          height: 300px;
+        }
+        .stats-strip {
+          flex-direction: column;
+        }
+        .stat-item {
+          border-right: none;
+          border-bottom: 1px solid var(--border);
+          padding: 2rem 1.5rem;
+        }
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+        .project-card.featured {
+          grid-column: span 1;
+          grid-template-columns: 1fr;
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .about-image-wrap {
+          height: 300px;
+        }
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        section {
+          padding: 5rem 1.5rem;
+        }
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+        .contact-section {
+          padding: 6rem 1.5rem;
+        }
+        footer {
+          padding: 1.5rem;
+          flex-direction: column;
+          gap: 0.5rem;
+          text-align: center;
+        }
+        body {
+          cursor: auto;
+        }
+        .cursor,
+        .cursor-ring {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- NAV -->
+    <nav>
+      <a href="#" class="logo">Bishal Dutta<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div style="display: flex; gap: 1rem; align-items: center">
+        <button id="themeToggle" class="nav-cta" style="cursor: pointer">
+          Dark Mode
+        </button>
+        <a href="Home.html" class="nav-cta">Hire Me</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-bg-grid"></div>
+      <div class="hero-content">
+        <div class="hero-tag">✦ Available for freelance</div>
+        <h1>
+          <span class="line">Creative</span>
+          <span class="line"><span class="accent">Dev</span> &</span>
+          <span class="line">Designer</span>
+        </h1>
+        <p class="hero-desc">
+          Crafting digital experiences that blur the line between art and
+          interface. Specializing in 3D web, motion design, and immersive
+          interaction.
+        </p>
+        <div class="hero-ctas">
+          <a href="#work" class="btn-primary"><span>View Work ↗</span></a>
+          <a href="#contact" class="btn-secondary"
+            >Let's talk <span class="arrow">→</span></a
+          >
+        </div>
+        <div class="scroll-hint">
+          <div class="scroll-dot"></div>
+          Scroll to explore
+        </div>
+      </div>
+      <div class="hero-visual">
+        <canvas id="hero3d"></canvas>
+      </div>
+    </section>
+
+    <!-- STATS REMOVED -->
+
+    <!-- MARQUEE -->
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Three.js</span><span class="dot">●</span> <span>WebDev</span
+        ><span class="dot">●</span> <span>React</span><span class="dot">●</span>
+        <span>AI/ML</span><span class="dot">●</span> <span>Figma</span
+        ><span class="dot">●</span> <span>Tailwind</span
+        ><span class="dot">●</span> <span>Flask</span
+        ><span class="dot">●</span> <span>UI / UX</span
+        ><span class="dot">●</span> <span></span
+        ><span class="dot">●</span> <span>WebDev</span><span class="dot">●</span>
+        <span>React</span><span class="dot">●</span> <span>GSAP</span
+        ><span class="dot">●</span> <span>Node.js</span><span class="dot">●</span>
+        <span>AI/ML</span><span class="dot">●</span> <span>Flask</span
+        ><span class="dot">●</span> <span>UI / UX</span
+        ><span class="dot">●</span>
+      </div>
+    </div>
+
+    <!-- WORK -->
+    <section id="work">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Selected Work</div>
+          <h2 class="section-title">Projects that<br />move people</h2>
+        </div>
+        <a href="#" class="section-link">All projects →</a>
+      </div>
+      <div class="projects-grid">
+        <!-- Featured -->
+        <div class="project-card featured">
+          <div>
+            <div class="project-num">01 / 04</div>
+            <div class="project-cat">AI / Computer Vision</div>
+            <h3 class="project-title">
+              TerraSeg — LULC Satellite Segmentation
+            </h3>
+            <p class="project-desc">
+              An advanced platform for Semantic Segmentation of satellite
+              imagery, categorizing pixels into classes like Buildings, Roads,
+              Water, and Vegetation for urban planning and environmental
+              monitoring.
+            </p>
+            <div class="project-tags">
+              <span>ResU-Net</span><span>TensorFlow</span><span>OpenCV</span
+              ><span>Streamlit</span>
+            </div>
+          </div>
+          <div class="project-visual">
+            <canvas class="proj-canvas" data-scene="particles"></canvas>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="project-card">
+          <div class="project-num">02 / 04</div>
+          <div class="project-cat">Machine Learning</div>
+          <h3 class="project-title">Deepfake Image Detection</h3>
+          <p class="project-desc">
+            Developed a deep learning-based system to accurately classify facial
+            images as real or fake.
+          </p>
+          <div class="project-tags">
+            <span>CNN</span><span>TensorFlow</span><span>Keras</span
+            ><span>Streamlit</span>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="project-card">
+          <div class="project-num">03 / 04</div>
+          <div class="project-cat">Deep Learning</div>
+          <h3 class="project-title">Plant Disease Prediction</h3>
+          <p class="project-desc">
+            Implemented a detection model using CNN architecture to classify
+            plant leaf images into various disease categories.
+          </p>
+          <div class="project-tags">
+            <span>CNN</span><span>TensorFlow</span><span>NumPy</span
+            ><span>Pandas</span>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="project-card">
+          <div class="project-num">04 / 04</div>
+          <div class="project-cat">AI / IoT Full-Stack</div>
+          <h3 class="project-title">ECORA — Smart Waste Management</h3>
+          <p class="project-desc">
+            A smart waste system that uses AI-enabled dustbins to automatically
+            classify waste and IoT sensors for real-time monitoring.
+          </p>
+          <div class="project-tags">
+            <span>React.js</span><span>Node.js</span><span>OpenCV</span
+            ><span>IoT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" style="background: var(--about-bg)">
+      <div class="about-grid">
+        <div class="about-image-wrap">
+          <img src="bishal.jpg" alt="Bishal" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+        </div>
+        <div class="about-content">
+          <div class="section-label">About Me</div>
+          <h2 class="section-title" style="margin-bottom: 2rem">
+            Turning ideas<br />into motion
+          </h2>
+          <p class="about-bio">
+            I'm <strong>Bishal Dutta</strong>, an AI/ML enthusiast and
+            Full-Stack Developer. I specialize in building intelligent systems,
+            bridging the gap between
+            <strong>machine learning and web applications</strong>. I have
+            experience in computer vision, deep learning architectures, and
+            modern web frameworks.
+          </p>
+          <p class="about-bio">
+            Currently obsessed with the intersection of
+            <strong>AI technologies</strong>, semantic segmentation, and
+            creating impactful real-world solutions.
+          </p>
+          <div class="skills-grid">
+            <div class="skill-item">
+              <div class="skill-dot"></div>
+              Python / Java / C
+            </div>
+            <div class="skill-item">
+              <div class="skill-dot"></div>
+              React.js / Node.js
+            </div>
+            <div class="skill-item">
+              <div class="skill-dot"></div>
+              TensorFlow / Keras
+            </div>
+            <div class="skill-item">
+              <div class="skill-dot"></div>
+              OpenCV / CNNs
+            </div>
+            <div class="skill-item">
+              <div class="skill-dot"></div>
+              Streamlit / Flask
+            </div>
+            <div class="skill-item">
+              <div class="skill-dot"></div>
+              HTML5 / Tailwind
+            </div>
+            <div class="skill-item">
+              <div class="skill-dot"></div>
+              Pandas / NumPy
+            </div>
+            <div class="skill-item">
+              <div class="skill-dot"></div>
+              DSA / DBMS
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="section-header">
+        <div>
+          <div class="section-label">What I Do</div>
+          <h2 class="section-title">Services &<br />Expertise</h2>
+        </div>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-num">01</div>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none">
+            <rect
+              x="4"
+              y="4"
+              width="40"
+              height="40"
+              rx="4"
+              stroke="currentColor"
+              stroke-width="1.5"
+            />
+            <path
+              d="M16 24l6 6 10-12"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <div class="service-title">3D Web Experiences</div>
+          <p class="service-desc">
+            Immersive WebGL and Three.js environments that push the boundaries
+            of what's possible in a browser. Real-time rendering, custom
+            shaders, physics simulation.
+          </p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">02</div>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none">
+            <circle
+              cx="24"
+              cy="24"
+              r="18"
+              stroke="currentColor"
+              stroke-width="1.5"
+            />
+            <path
+              d="M24 6v6M24 36v6M6 24h6M36 24h6"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+          </svg>
+          <div class="service-title">AI/ML Development</div>
+          <p class="service-desc">
+             Choreographed intelligent, data-driven solutions
+             using machine learning and deep learning 
+             for real-world impact.
+          </p>
+        </div>
+        <div class="service-card">
+          <div class="service-num">03</div>
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none">
+            <path
+              d="M8 12h32M8 24h20M8 36h26"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            />
+          </svg>
+          <div class="service-title">UI / UX Design</div>
+          <p class="service-desc">
+            End-to-end product design from wireframes to high-fidelity
+            prototypes. Design systems, accessibility-first, and component
+            libraries that scale.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section" id="contact">
+      <canvas class="contact-canvas" id="contact3d"></canvas>
+      <div class="contact-inner">
+        <div class="contact-label">✦ Open to opportunities</div>
+        <h2 class="contact-title">
+          Let's<br />
+          <span class="ghost">Create</span><br />
+          Together
+        </h2>
+        <p class="contact-sub">
+          Have a project in mind? I'd love to hear about it. Let's build
+          something extraordinary.
+        </p>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+          "
+        >
+          <a href="mailto:bishaldutta661@gmail.com" class="contact-email"
+            >bishaldutta661@gmail.com →</a
+          >
+          <a href="tel:+919064076209" class="contact-email">+91 9064076209 →</a>
+        </div>
+        <div class="social-row">
+          <a
+            href="https://github.com/bishaldutta11?tab=repositories"
+            class="social-link"
+            target="_blank"
+            >GitHub</a
+          >
+          <a
+            href="https://www.linkedin.com/in/bishal-dutta-26780a28b"
+            class="social-link"
+            target="_blank"
+            >LinkedIn</a
+          >
+          <a
+            href="https://www.instagram.com/bishaldutta_11?igsh=MTJhODJlcm5raWdtaQ=="
+            class="social-link"
+            target="_blank"
+            >Instagram</a
+          >
+          <a
+            href="https://wa.me/qr/6QHWMXF4KJHSO1"
+            class="social-link"
+            target="_blank"
+            >WhatsApp</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-copy">
+        © Bishal Dutta<span>.</span> All rights reserved.
+      </div>
+    </footer>
+
+    <script>
+      /* ─── CURSOR ─── */
+      const cursor = document.getElementById("cursor");
+      const ring = document.getElementById("cursorRing");
+      let mx = 0,
+        my = 0,
+        rx = 0,
+        ry = 0;
+      document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+      });
+      function animCursor() {
+        cursor.style.left = mx + "px";
+        cursor.style.top = my + "px";
+        rx += (mx - rx) * 0.15;
+        ry += (my - ry) * 0.15;
+        ring.style.left = rx + "px";
+        ring.style.top = ry + "px";
+        requestAnimationFrame(animCursor);
+      }
+      animCursor();
+      document
+        .querySelectorAll("a, button, .project-card, .service-card")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursor.classList.add("hovering");
+            ring.classList.add("hovering");
+          });
+          el.addEventListener("mouseleave", () => {
+            cursor.classList.remove("hovering");
+            ring.classList.remove("hovering");
+          });
+        });
+
+      /* ─── SCROLL REVEAL ─── */
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+              setTimeout(() => e.target.classList.add("visible"), i * 80);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".stat-item, .project-card, .service-card")
+        .forEach((el) => obs.observe(el));
+
+      /* ─── 3D HERO SCENE ─── */
+      (function heroScene() {
+        const c = document.getElementById("hero3d");
+        if (!c) return;
+        const ctx = c.getContext("2d");
+        let W,
+          H,
+          frame = 0,
+          mouse = { x: 0.5, y: 0.5 };
+
+        function resize() {
+          const rect = c.parentElement.getBoundingClientRect();
+          W = c.width = rect.width * devicePixelRatio;
+          H = c.height = rect.height * devicePixelRatio;
+          ctx.scale(devicePixelRatio, devicePixelRatio);
+          W /= devicePixelRatio;
+          H /= devicePixelRatio;
+        }
+        window.addEventListener("resize", resize);
+        resize();
+
+        document.addEventListener("mousemove", (e) => {
+          const r = c.getBoundingClientRect();
+          mouse.x = (e.clientX - r.left) / r.width;
+          mouse.y = (e.clientY - r.top) / r.height;
+        });
+
+        // Sphere wireframe with twist
+        function project3D(x, y, z, rotX, rotY, cx, cy, fov) {
+          const cosX = Math.cos(rotX),
+            sinX = Math.sin(rotX);
+          const cosY = Math.cos(rotY),
+            sinY = Math.sin(rotY);
+          let y1 = y * cosX - z * sinX,
+            z1 = y * sinX + z * cosX;
+          let x2 = x * cosY + z1 * sinY,
+            z2 = -x * sinY + z1 * cosY;
+          const scale = fov / (fov + z2 + 300);
+          return {
+            x: cx + (x2 * scale * fov) / 4,
+            y: cy + (y1 * scale * fov) / 4,
+            z: z2,
+            scale,
+          };
+        }
+
+        function drawHero(t) {
+          const rc = c.width / devicePixelRatio;
+          const rh = c.height / devicePixelRatio;
+          ctx.clearRect(0, 0, rc, rh);
+
+          const cx = rc / 2,
+            cy = rh / 2;
+          const rotY = t * 0.004 + (mouse.x - 0.5) * 0.8;
+          const rotX = -0.3 + (mouse.y - 0.5) * 0.5;
+          const r = Math.min(rc, rh) * 0.36;
+          const segs = 18,
+            rings = 14;
+          const fov = 900;
+
+          // Draw sphere wireframe
+          for (let i = 0; i <= rings; i++) {
+            const theta = (i / rings) * Math.PI;
+            const pts = [];
+            for (let j = 0; j <= segs; j++) {
+              const phi = (j / segs) * 2 * Math.PI;
+              pts.push({
+                x: r * Math.sin(theta) * Math.cos(phi),
+                y: r * Math.cos(theta),
+                z: r * Math.sin(theta) * Math.sin(phi),
+              });
+            }
+            ctx.beginPath();
+            pts.forEach((p, idx) => {
+              const { x, y } = project3D(
+                p.x,
+                p.y,
+                p.z,
+                rotX,
+                rotY,
+                cx,
+                cy,
+                fov,
+              );
+              idx === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            });
+            ctx.strokeStyle = `rgba(10,10,15,${0.08 + 0.05 * (i / rings)})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+          for (let j = 0; j < segs; j++) {
+            const phi = (j / segs) * 2 * Math.PI;
+            const pts = [];
+            for (let i = 0; i <= rings; i++) {
+              const theta = (i / rings) * Math.PI;
+              pts.push({
+                x: r * Math.sin(theta) * Math.cos(phi),
+                y: r * Math.cos(theta),
+                z: r * Math.sin(theta) * Math.sin(phi),
+              });
+            }
+            ctx.beginPath();
+            pts.forEach((p, idx) => {
+              const { x, y } = project3D(
+                p.x,
+                p.y,
+                p.z,
+                rotX,
+                rotY,
+                cx,
+                cy,
+                fov,
+              );
+              idx === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            });
+            ctx.strokeStyle = `rgba(10,10,15,0.06)`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+
+          // Orbit ring
+          ctx.beginPath();
+          const orbitR = r * 1.3;
+          const orbitPts = [];
+          for (let i = 0; i <= 80; i++) {
+            const a = (i / 80) * Math.PI * 2;
+            orbitPts.push({
+              x: orbitR * Math.cos(a),
+              y: 0,
+              z: orbitR * Math.sin(a),
+            });
+          }
+          orbitPts.forEach((p, idx) => {
+            const { x, y } = project3D(
+              p.x,
+              p.y,
+              p.z,
+              rotX + 0.5,
+              rotY,
+              cx,
+              cy,
+              fov,
+            );
+            idx === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+          });
+          ctx.strokeStyle = "rgba(255,63,0,0.35)";
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // Animated dot on orbit
+          const da = t * 0.012;
+          const dp = project3D(
+            orbitR * Math.cos(da),
+            0,
+            orbitR * Math.sin(da),
+            rotX + 0.5,
+            rotY,
+            cx,
+            cy,
+            fov,
+          );
+          ctx.beginPath();
+          ctx.arc(dp.x, dp.y, 5 * dp.scale, 0, Math.PI * 2);
+          ctx.fillStyle = "#ff3f00";
+          ctx.fill();
+
+          // Second orbit
+          ctx.beginPath();
+          const orbitPts2 = [];
+          for (let i = 0; i <= 80; i++) {
+            const a = (i / 80) * Math.PI * 2;
+            orbitPts2.push({
+              x: orbitR * 1.2 * Math.cos(a),
+              y: 0,
+              z: orbitR * 1.2 * Math.sin(a),
+            });
+          }
+          orbitPts2.forEach((p, idx) => {
+            const { x, y } = project3D(
+              p.x,
+              p.y,
+              p.z,
+              rotX - 0.3,
+              rotY + 0.8,
+              cx,
+              cy,
+              fov,
+            );
+            idx === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+          });
+          ctx.strokeStyle = "rgba(0,87,255,0.2)";
+          ctx.lineWidth = 1;
+          ctx.stroke();
+
+          const da2 = -t * 0.008;
+          const dp2 = project3D(
+            orbitR * 1.2 * Math.cos(da2),
+            0,
+            orbitR * 1.2 * Math.sin(da2),
+            rotX - 0.3,
+            rotY + 0.8,
+            cx,
+            cy,
+            fov,
+          );
+          ctx.beginPath();
+          ctx.arc(dp2.x, dp2.y, 4 * dp2.scale, 0, Math.PI * 2);
+          ctx.fillStyle = "#0057ff";
+          ctx.fill();
+        }
+
+        function loop() {
+          drawHero(frame++);
+          requestAnimationFrame(loop);
+        }
+        loop();
+      })();
+
+      /* ─── PARTICLE PROJECT CANVAS ─── */
+      document
+        .querySelectorAll('.proj-canvas[data-scene="particles"]')
+        .forEach((c) => {
+          const ctx = c.getContext("2d");
+          let W,
+            H,
+            frame = 0;
+          const particles = Array.from({ length: 120 }, () => ({
+            x: Math.random(),
+            y: Math.random(),
+            vx: (Math.random() - 0.5) * 0.001,
+            vy: (Math.random() - 0.5) * 0.001,
+            r: Math.random() * 2 + 0.5,
+            hue: Math.random() < 0.3 ? "#ff3f00" : "#0057ff",
+          }));
+          function resize() {
+            const rect = c.parentElement.getBoundingClientRect();
+            W = c.width = rect.width * devicePixelRatio;
+            H = c.height = rect.height * devicePixelRatio;
+          }
+          window.addEventListener("resize", resize);
+          resize();
+          function loop() {
+            ctx.clearRect(0, 0, W, H);
+            const s = devicePixelRatio;
+            particles.forEach((p) => {
+              p.x += p.vx;
+              p.y += p.vy;
+              if (p.x < 0) p.x = 1;
+              if (p.x > 1) p.x = 0;
+              if (p.y < 0) p.y = 1;
+              if (p.y > 1) p.y = 0;
+              ctx.beginPath();
+              ctx.arc(
+                (p.x * W) / s,
+                (p.y * H) / s,
+                p.r * s * 0.8,
+                0,
+                Math.PI * 2,
+              );
+              ctx.fillStyle = p.hue;
+              ctx.globalAlpha = 0.7;
+              ctx.fill();
+            });
+            // Lines
+            ctx.globalAlpha = 0.15;
+            particles.forEach((a, i) => {
+              particles.slice(i + 1, i + 6).forEach((b) => {
+                const dx = a.x - b.x,
+                  dy = a.y - b.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 0.15) {
+                  ctx.beginPath();
+                  ctx.moveTo((a.x * W) / s, (a.y * H) / s);
+                  ctx.lineTo((b.x * W) / s, (b.y * H) / s);
+                  ctx.strokeStyle = "#0a0a0f";
+                  ctx.lineWidth = 0.5;
+                  ctx.stroke();
+                }
+              });
+            });
+            ctx.globalAlpha = 1;
+            frame++;
+            requestAnimationFrame(loop);
+          }
+          loop();
+        });
+
+      /* ─── ABOUT 3D SCENE ─── */
+      (function aboutScene() {
+        const c = document.getElementById("about3d");
+        if (!c) return;
+        const ctx = c.getContext("2d");
+        let W,
+          H,
+          frame = 0;
+        function resize() {
+          const rect = c.getBoundingClientRect();
+          W = c.width = rect.width * devicePixelRatio;
+          H = c.height = rect.height * devicePixelRatio;
+        }
+        window.addEventListener("resize", resize);
+        resize();
+
+        function draw(t) {
+          const s = devicePixelRatio;
+          const w = W / s,
+            h = H / s;
+          ctx.clearRect(0, 0, W, H);
+          const cx = w / 2,
+            cy = h / 2;
+
+          // Rotating cube wireframe
+          const size = Math.min(w, h) * 0.28;
+          const rot = t * 0.005;
+          const rot2 = t * 0.003;
+          const vertices = [
+            [-1, -1, -1],
+            [1, -1, -1],
+            [1, 1, -1],
+            [-1, 1, -1],
+            [-1, -1, 1],
+            [1, -1, 1],
+            [1, 1, 1],
+            [-1, 1, 1],
+          ].map(([x, y, z]) => {
+            // Rotate Y
+            const x2 = x * Math.cos(rot) - z * Math.sin(rot);
+            const z2 = x * Math.sin(rot) + z * Math.cos(rot);
+            // Rotate X
+            const y3 = y * Math.cos(rot2) - z2 * Math.sin(rot2);
+            const z3 = y * Math.sin(rot2) + z2 * Math.cos(rot2);
+            const fov = 6;
+            const sc = fov / (fov + z3 + 4);
+            return { sx: cx + x2 * sc * size, sy: cy + y3 * sc * size, z: z3 };
+          });
+
+          const edges = [
+            [0, 1],
+            [1, 2],
+            [2, 3],
+            [3, 0],
+            [4, 5],
+            [5, 6],
+            [6, 7],
+            [7, 4],
+            [0, 4],
+            [1, 5],
+            [2, 6],
+            [3, 7],
+          ];
+          edges.forEach(([a, b]) => {
+            const va = vertices[a],
+              vb = vertices[b];
+            const depth = (va.z + vb.z) / 2;
+            const alpha = 0.15 + (depth + 2) / 8;
+            ctx.beginPath();
+            ctx.moveTo(va.sx * s, va.sy * s);
+            ctx.lineTo(vb.sx * s, vb.sy * s);
+            ctx.strokeStyle = `rgba(10,10,15,${alpha.toFixed(2)})`;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+          });
+
+          // Dots at vertices
+          vertices.forEach((v) => {
+            ctx.beginPath();
+            ctx.arc(v.sx * s, v.sy * s, 3 * s, 0, Math.PI * 2);
+            ctx.fillStyle = "#ff3f00";
+            ctx.globalAlpha = 0.8;
+            ctx.fill();
+            ctx.globalAlpha = 1;
+          });
+
+          // Outer ring
+          ctx.beginPath();
+          ctx.arc(cx * s, cy * s, size * 1.6 * s, 0, Math.PI * 2);
+          ctx.strokeStyle = "rgba(10,10,15,0.08)";
+          ctx.lineWidth = 1;
+          ctx.stroke();
+
+          // Animated dash
+          ctx.beginPath();
+          ctx.arc(
+            cx * s,
+            cy * s,
+            size * 1.6 * s,
+            rot * 2,
+            rot * 2 + Math.PI * 0.4,
+          );
+          ctx.strokeStyle = "#0057ff";
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+
+        function loop() {
+          draw(frame++);
+          requestAnimationFrame(loop);
+        }
+        loop();
+      })();
+
+      /* ─── CONTACT 3D ─── */
+      (function contactScene() {
+        const c = document.getElementById("contact3d");
+        if (!c) return;
+        const ctx = c.getContext("2d");
+        let W,
+          H,
+          frame = 0;
+        function resize() {
+          W = c.width = c.offsetWidth * devicePixelRatio;
+          H = c.height = c.offsetHeight * devicePixelRatio;
+        }
+        window.addEventListener("resize", resize);
+        resize();
+
+        const lines = Array.from({ length: 30 }, () => ({
+          x1: Math.random(),
+          y1: Math.random(),
+          x2: Math.random(),
+          y2: Math.random(),
+          vx1: (Math.random() - 0.5) * 0.0008,
+          vy1: (Math.random() - 0.5) * 0.0008,
+          vx2: (Math.random() - 0.5) * 0.0008,
+          vy2: (Math.random() - 0.5) * 0.0008,
+        }));
+
+        function draw() {
+          const s = devicePixelRatio;
+          ctx.clearRect(0, 0, W, H);
+          const w = W / s,
+            h = H / s;
+          lines.forEach((l) => {
+            l.x1 += l.vx1;
+            l.y1 += l.vy1;
+            l.x2 += l.vx2;
+            l.y2 += l.vy2;
+            if (l.x1 < 0 || l.x1 > 1) l.vx1 *= -1;
+            if (l.y1 < 0 || l.y1 > 1) l.vy1 *= -1;
+            if (l.x2 < 0 || l.x2 > 1) l.vx2 *= -1;
+            if (l.y2 < 0 || l.y2 > 1) l.vy2 *= -1;
+            ctx.beginPath();
+            ctx.moveTo(l.x1 * w * s, l.y1 * h * s);
+            ctx.lineTo(l.x2 * w * s, l.y2 * h * s);
+            ctx.strokeStyle = "rgba(245,243,238,0.12)";
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          });
+          requestAnimationFrame(draw);
+        }
+        draw();
+      })();
+
+      /* ─── COUNTER ANIMATION ─── */
+      const counters = document.querySelectorAll(".stat-num");
+      const counterObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              const el = e.target;
+              const suffix = el.querySelector("span")
+                ? el.querySelector("span").textContent
+                : "";
+              const target = parseInt(el.textContent);
+              let start = 0;
+              const dur = 1200;
+              const step = (t) => {
+                const p = Math.min(t / dur, 1);
+                const ease = 1 - Math.pow(1 - p, 3);
+                el.innerHTML =
+                  Math.round(ease * target) + `<span>${suffix}</span>`;
+                if (p < 1) requestAnimationFrame((t2) => step(t2 - startTime));
+              };
+              let startTime;
+              requestAnimationFrame((t) => {
+                startTime = t;
+                step(0);
+              });
+              counterObs.unobserve(el);
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+      counters.forEach((c) => counterObs.observe(c));
+
+      /* ─── DARK MODE TOGGLE ─── */
+      const themeToggle = document.getElementById("themeToggle");
+      if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+          const isDark = document.body.getAttribute("data-theme") === "dark";
+          document.body.setAttribute("data-theme", isDark ? "light" : "dark");
+          themeToggle.textContent = isDark ? "Dark Mode" : "Light Mode";
+        });
+      }
+    </script>
+  </body>
+</html>
