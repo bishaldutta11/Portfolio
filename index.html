@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>Bishal Dutta — Creative Developer</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap"
@@ -26,13 +29,15 @@
         --card-bg: #ffffff;
         --border: rgba(10, 10, 15, 0.1);
         --about-bg: #f0ede6;
+        --nav-bg: rgba(245, 243, 238, 0.85);
       }
       [data-theme="dark"] {
         --ink: #f5f3ee;
-        --paper: #0a0a0f;
-        --card-bg: #121216;
+        --paper: #121315;
+        --card-bg: #1a1b1e;
         --border: rgba(245, 243, 238, 0.1);
-        --about-bg: #0a0a0f;
+        --about-bg: #121315;
+        --nav-bg: rgba(18, 19, 21, 0.85);
       }
 
       html {
@@ -107,7 +112,7 @@
         align-items: center;
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        background: rgba(245, 243, 238, 0.85);
+        background: var(--nav-bg);
         border-bottom: 1px solid var(--border);
       }
       .logo {
@@ -140,20 +145,76 @@
       .nav-cta {
         font-family: "DM Mono", monospace;
         font-size: 0.8rem;
-        font-weight: 500;
+        font-weight: 600;
         padding: 0.55rem 1.4rem;
         border: 1.5px solid var(--ink);
-        background: transparent;
+        background: var(--paper);
         color: var(--ink);
         text-decoration: none;
-        letter-spacing: 0.04em;
-        transition:
-          background 0.2s,
-          color 0.2s;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        position: relative;
+        transition: all 0.2s cubic-bezier(0.77, 0, 0.18, 1);
+        box-shadow: 4px 4px 0 var(--accent);
       }
       .nav-cta:hover {
+        transform: translate(4px, 4px);
+        box-shadow: 0px 0px 0 var(--accent);
         background: var(--ink);
         color: var(--paper);
+        border-color: var(--ink);
+      }
+
+      /* ─── THEME TOGGLE ─── */
+      .theme-toggle-btn {
+        width: 58px;
+        height: 28px;
+        border-radius: 30px;
+        border: 1.5px solid var(--ink);
+        background: transparent;
+        position: relative;
+        cursor: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 6px;
+        transition: border-color 0.3s ease;
+        overflow: hidden;
+      }
+      .theme-toggle-btn:hover {
+        border-color: var(--accent);
+      }
+      .theme-toggle-btn svg {
+        width: 12px;
+        height: 12px;
+        fill: var(--ink);
+        opacity: 0.5;
+        transition: opacity 0.3s ease;
+        z-index: 0;
+      }
+      .theme-toggle-btn .sun {
+        opacity: 1;
+      }
+      [data-theme="dark"] .theme-toggle-btn .sun {
+        opacity: 0.5;
+      }
+      [data-theme="dark"] .theme-toggle-btn .moon {
+        opacity: 1;
+      }
+      .theme-toggle-thumb {
+        position: absolute;
+        top: 50%;
+        left: 4px;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        background: var(--ink);
+        border-radius: 50%;
+        transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+        z-index: 1;
+      }
+      [data-theme="dark"] .theme-toggle-thumb {
+        transform: translate(30px, -50%);
       }
 
       /* ─── HERO ─── */
@@ -835,9 +896,9 @@
       /* FOOTER */
       footer {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
-        padding: 1.5rem 3rem;
+        padding: 0.2rem 3rem;
         border-top: 1px solid var(--border);
         background: var(--paper);
       }
@@ -948,6 +1009,348 @@
           display: none;
         }
       }
+
+      /* ─── MERGED RESPONSIVE UTILITIES ─── */
+      .mobile-only {
+        display: none !important;
+      }
+      @media (max-width: 900px) {
+        .desktop-only {
+          display: none !important;
+        }
+        .mobile-only {
+          display: flex !important;
+        }
+        .mobile-only.block {
+          display: block !important;
+        }
+        .mobile-only.grid {
+          display: grid !important;
+        }
+
+        .projects-grid {
+          display: none !important;
+        }
+        .services-grid {
+          display: none !important;
+        }
+        .about-grid {
+          display: none !important;
+        }
+
+        nav .nav-links {
+          display: none !important;
+        }
+      }
+
+      /* ─── MOBILE WORK SECTION ─── */
+      section {
+        padding: 4rem 1.5rem;
+      }
+      .section-header {
+        margin-bottom: 2.5rem;
+      }
+      .section-label {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.8rem;
+      }
+      .section-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+      }
+
+      .mobile-projects {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .mob-project-card {
+        background: var(--paper);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      }
+      .mob-project-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .mob-project-card.visible:active {
+        transition-duration: 0.15s; /* fast physical press */
+        transform: scale(0.96);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-color: var(--accent);
+      }
+      .mob-project-visual {
+        width: 100%;
+        height: 220px;
+        background: var(--border);
+        position: relative;
+        overflow: hidden;
+      }
+      .mob-project-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .mob-project-content {
+        padding: 1.5rem;
+      }
+      .mob-project-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.8rem;
+      }
+      .mob-project-num {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--muted);
+      }
+      .mob-project-cat {
+        font-family: "DM Mono", monospace;
+        font-size: 0.7rem;
+        color: var(--accent);
+        text-transform: uppercase;
+      }
+      .mob-project-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 0.8rem;
+      }
+      .mob-project-desc {
+        font-family: "DM Mono", monospace;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: var(--muted);
+        margin-bottom: 1.2rem;
+      }
+      .mob-project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+      .mob-project-tags span {
+        font-family: "DM Mono", monospace;
+        font-size: 0.65rem;
+        padding: 0.3rem 0.6rem;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        color: var(--muted);
+      }
+
+      /* ─── MOBILE ABOUT ─── */
+      #about {
+        background: var(--about-bg);
+      }
+      .mob-about-img {
+        width: 100%;
+        height: 350px;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+        border: 2px solid var(--ink);
+      }
+      .mob-about-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .mob-about-bio {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+      .mob-about-bio strong {
+        color: var(--accent);
+      }
+      .mob-skills {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+        margin-top: 2rem;
+      }
+      .mob-skill-item {
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--ink);
+        padding: 0.8rem;
+        background: var(--paper);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+      }
+      .mob-skill-item .dot {
+        width: 6px;
+        height: 6px;
+        background: var(--accent);
+        border-radius: 50%;
+      }
+
+      /* ─── MOBILE SERVICES ─── */
+      .mob-services {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .mob-service-card {
+        padding: 2rem 1.5rem;
+        background: var(--paper);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      }
+      .mob-service-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .mob-service-card.visible:active {
+        transition-duration: 0.15s;
+        transform: scale(0.96);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-color: var(--accent);
+      }
+      .mob-service-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 1.2rem;
+        color: var(--ink);
+      }
+      .mob-service-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 0.8rem;
+      }
+      .mob-service-desc {
+        font-family: "DM Mono", monospace;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+
+      /* ─── MOBILE CONTACT ─── */
+      #contact {
+        background: #0a0a0f;
+        color: #f5f3ee;
+        text-align: center;
+        padding: 5rem 1.5rem;
+      }
+      .mob-contact-title {
+        font-size: 3rem;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 1.5rem;
+      }
+      .mob-contact-title .ghost {
+        -webkit-text-stroke: 1px rgba(245, 243, 238, 0.4);
+        color: transparent;
+      }
+      .mob-contact-sub {
+        font-family: "DM Mono", monospace;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        color: rgba(245, 243, 238, 0.6);
+        margin-bottom: 2.5rem;
+      }
+      .mob-contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+      .mob-contact-links a {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #f5f3ee;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(245, 243, 238, 0.2);
+        padding-bottom: 0.5rem;
+        display: inline-block;
+      }
+      .mob-socials {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+      }
+      .mob-socials a {
+        font-family: "DM Mono", monospace;
+        font-size: 0.8rem;
+        color: rgba(245, 243, 238, 0.6);
+        text-decoration: none;
+        text-transform: uppercase;
+        border: 1px solid rgba(245, 243, 238, 0.2);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+      }
+
+      /* ─── MOBILE FOOTER ─── */
+      footer {
+        padding: 0.5rem;
+        text-align: center;
+        font-family: "DM Mono", monospace;
+        font-size: 0.75rem;
+        color: var(--muted);
+        background: var(--paper);
+        border-top: 1px solid var(--border);
+      }
+      footer span {
+        color: var(--accent);
+      }
+
+      /* BOTTOM NAV (BONUS FOR MOBILE) */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--paper);
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-around;
+        padding: 0.8rem;
+        z-index: 100;
+      }
+      [data-theme="dark"] .bottom-nav {
+        background: var(--card-bg);
+      }
+      .bottom-nav a {
+        text-decoration: none;
+        color: var(--muted);
+        font-family: "DM Mono", monospace;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .bottom-nav a svg {
+        width: 20px;
+        height: 20px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.5;
+      }
+
+      body {
+        padding-bottom: 2px; /* Space for bottom nav */
+      }
     </style>
   </head>
   <body>
@@ -964,10 +1367,32 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
       <div style="display: flex; gap: 1rem; align-items: center">
-        <button id="themeToggle" class="nav-cta" style="cursor: pointer">
-          Dark Mode
+        <button
+          id="themeToggle"
+          class="theme-toggle-btn"
+          aria-label="Toggle dark mode"
+        >
+          <svg
+            class="sun"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 000-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 000 1.41.996.996 0 001.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06z"
+            />
+          </svg>
+          <svg
+            class="moon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"
+            />
+          </svg>
+          <div class="theme-toggle-thumb"></div>
         </button>
-        <a href="Home.html" class="nav-cta">Hire Me</a>
+        <a href="Home.html" class="nav-cta desktop-only">Hire Me</a>
       </div>
     </nav>
 
@@ -982,9 +1407,9 @@
           <span class="line">Engineer</span>
         </h1>
         <p class="hero-desc">
-          Results-driven Software Engineer with a blend of creativity and technical proficiency.
-          Focused on developing robust applications and delivering
-          impactful digital solutions
+          Results-driven Software Engineer with a blend of creativity and
+          technical proficiency. Focused on developing robust applications and
+          delivering impactful digital solutions
         </p>
         <div class="hero-ctas">
           <a href="#work" class="btn-primary"><span>View Work ↗</span></a>
@@ -1024,93 +1449,209 @@
 
     <!-- WORK -->
     <section id="work">
-      <div class="section-header">
-        <div>
+      <div class="desktop-only">
+        <div class="section-header">
+          <div>
+            <div class="section-label">Selected Work</div>
+            <h2 class="section-title">Projects that<br />move people</h2>
+          </div>
+          <a href="#" class="section-link">All projects →</a>
+        </div>
+        <div class="projects-grid">
+          <!-- Featured -->
+          <div class="project-card featured">
+            <div>
+              <div class="project-num">01 / 04</div>
+              <div class="project-cat">AI / Computer Vision</div>
+              <h3 class="project-title">
+                TerraSeg — LULC Satellite Segmentation
+              </h3>
+              <p class="project-desc">
+                An advanced platform for Semantic Segmentation of satellite
+                imagery, categorizing pixels into classes like Buildings, Roads,
+                Water, and Vegetation for urban planning and environmental
+                monitoring.
+              </p>
+              <div class="project-tags">
+                <span>ResU-Net</span><span>TensorFlow</span><span>OpenCV</span
+                ><span>Streamlit</span>
+              </div>
+            </div>
+            <div class="project-visual">
+              <canvas class="proj-canvas" data-scene="particles"></canvas>
+              <img src="proj1.png" alt="TerraSeg" class="proj-img" />
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div
+            class="project-card"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+            "
+          >
+            <div class="project-content">
+              <div class="project-num">02 / 04</div>
+              <div class="project-cat">Machine Learning</div>
+              <h3 class="project-title">Deepfake Image Detection</h3>
+              <p class="project-desc">
+                Developed a deep learning-based system to accurately classify
+                facial images as real or fake.
+              </p>
+              <div class="project-tags">
+                <span>CNN</span><span>TensorFlow</span><span>Keras</span
+                ><span>Streamlit</span>
+              </div>
+            </div>
+            <div class="project-visual">
+              <img src="proj2.png" alt="Deepfake Detection" class="proj-img" />
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div
+            class="project-card"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+            "
+          >
+            <div class="project-content">
+              <div class="project-num">03 / 04</div>
+              <div class="project-cat">Deep Learning</div>
+              <h3 class="project-title">Plant Disease Prediction</h3>
+              <p class="project-desc">
+                Implemented a detection model using CNN architecture to classify
+                plant leaf images into various disease categories.
+              </p>
+              <div class="project-tags">
+                <span>CNN</span><span>TensorFlow</span><span>NumPy</span
+                ><span>Pandas</span>
+              </div>
+            </div>
+            <div class="project-visual">
+              <img src="proj3.png" alt="Plant Disease" class="proj-img" />
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div
+            class="project-card"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+            "
+          >
+            <div class="project-content">
+              <div class="project-num">04 / 04</div>
+              <div class="project-cat">AI / IoT Full-Stack</div>
+              <h3 class="project-title">ECORA — Smart Waste Management</h3>
+              <p class="project-desc">
+                A smart waste system that uses AI-enabled dustbins to
+                automatically classify waste and IoT sensors for real-time
+                monitoring.
+              </p>
+              <div class="project-tags">
+                <span>React.js</span><span>Node.js</span><span>OpenCV</span
+                ><span>IoT</span>
+              </div>
+            </div>
+            <div class="project-visual">
+              <img src="proj4.png" alt="ECORA" class="proj-img" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-only block" style="width: 100%">
+        <div class="section-header">
           <div class="section-label">Selected Work</div>
           <h2 class="section-title">Projects that<br />move people</h2>
         </div>
-        <a href="#" class="section-link">All projects →</a>
-      </div>
-      <div class="projects-grid">
-        <!-- Featured -->
-        <div class="project-card featured">
-          <div>
-            <div class="project-num">01 / 04</div>
-            <div class="project-cat">AI / Computer Vision</div>
-            <h3 class="project-title">
-              TerraSeg — LULC Satellite Segmentation
-            </h3>
-            <p class="project-desc">
-              An advanced platform for Semantic Segmentation of satellite
-              imagery, categorizing pixels into classes like Buildings, Roads,
-              Water, and Vegetation for urban planning and environmental
-              monitoring.
-            </p>
-            <div class="project-tags">
-              <span>ResU-Net</span><span>TensorFlow</span><span>OpenCV</span
-              ><span>Streamlit</span>
+
+        <div class="mobile-projects">
+          <!-- Project 1 -->
+          <div class="mob-project-card">
+            <div class="mob-project-visual">
+              <img src="proj1.png" alt="TerraSeg" />
+            </div>
+            <div class="mob-project-content">
+              <div class="mob-project-meta">
+                <span class="mob-project-num">01/04</span>
+                <span class="mob-project-cat">AI Vision</span>
+              </div>
+              <h3 class="mob-project-title">TerraSeg</h3>
+              <p class="mob-project-desc">
+                Semantic Segmentation of satellite imagery for urban planning.
+              </p>
+              <div class="mob-project-tags">
+                <span>ResU-Net</span><span>TensorFlow</span
+                ><span>Streamlit</span>
+              </div>
             </div>
           </div>
-          <div class="project-visual">
-            <canvas class="proj-canvas" data-scene="particles"></canvas>
-            <img src="proj1.png" alt="TerraSeg" class="proj-img" />
-          </div>
-        </div>
-        <!-- Card 2 -->
-        <div class="project-card" style="display: flex; flex-direction: column; justify-content: space-between;">
-          <div class="project-content">
-            <div class="project-num">02 / 04</div>
-            <div class="project-cat">Machine Learning</div>
-            <h3 class="project-title">Deepfake Image Detection</h3>
-            <p class="project-desc">
-              Developed a deep learning-based system to accurately classify facial
-              images as real or fake.
-            </p>
-            <div class="project-tags">
-              <span>CNN</span><span>TensorFlow</span><span>Keras</span
-              ><span>Streamlit</span>
+
+          <!-- Project 2 -->
+          <div class="mob-project-card">
+            <div class="mob-project-visual">
+              <img src="proj2.png" alt="Deepfake" />
+            </div>
+            <div class="mob-project-content">
+              <div class="mob-project-meta">
+                <span class="mob-project-num">02/04</span>
+                <span class="mob-project-cat">Machine Learning</span>
+              </div>
+              <h3 class="mob-project-title">Deepfake Detection</h3>
+              <p class="mob-project-desc">
+                Deep learning system to accurately classify images as real or
+                fake.
+              </p>
+              <div class="mob-project-tags">
+                <span>CNN</span><span>TensorFlow</span><span>Keras</span>
+              </div>
             </div>
           </div>
-          <div class="project-visual">
-            <img src="proj2.png" alt="Deepfake Detection" class="proj-img" />
-          </div>
-        </div>
-        <!-- Card 3 -->
-        <div class="project-card" style="display: flex; flex-direction: column; justify-content: space-between;">
-          <div class="project-content">
-            <div class="project-num">03 / 04</div>
-            <div class="project-cat">Deep Learning</div>
-            <h3 class="project-title">Plant Disease Prediction</h3>
-            <p class="project-desc">
-              Implemented a detection model using CNN architecture to classify
-              plant leaf images into various disease categories.
-            </p>
-            <div class="project-tags">
-              <span>CNN</span><span>TensorFlow</span><span>NumPy</span
-              ><span>Pandas</span>
+
+          <!-- Project 3 -->
+          <div class="mob-project-card">
+            <div class="mob-project-visual">
+              <img src="proj3.png" alt="Plant Disease" />
+            </div>
+            <div class="mob-project-content">
+              <div class="mob-project-meta">
+                <span class="mob-project-num">03/04</span>
+                <span class="mob-project-cat">Deep Learning</span>
+              </div>
+              <h3 class="mob-project-title">Plant Disease AI</h3>
+              <p class="mob-project-desc">
+                CNN architecture classifying leaf images into disease
+                categories.
+              </p>
+              <div class="mob-project-tags">
+                <span>CNN</span><span>NumPy</span><span>Pandas</span>
+              </div>
             </div>
           </div>
-          <div class="project-visual">
-            <img src="proj3.png" alt="Plant Disease" class="proj-img" />
-          </div>
-        </div>
-        <!-- Card 4 -->
-        <div class="project-card" style="display: flex; flex-direction: column; justify-content: space-between;">
-          <div class="project-content">
-            <div class="project-num">04 / 04</div>
-            <div class="project-cat">AI / IoT Full-Stack</div>
-            <h3 class="project-title">ECORA — Smart Waste Management</h3>
-            <p class="project-desc">
-              A smart waste system that uses AI-enabled dustbins to automatically
-              classify waste and IoT sensors for real-time monitoring.
-            </p>
-            <div class="project-tags">
-              <span>React.js</span><span>Node.js</span><span>OpenCV</span
-              ><span>IoT</span>
+
+          <!-- Project 4 -->
+          <div class="mob-project-card">
+            <div class="mob-project-visual">
+              <img src="proj4.png" alt="ECORA" />
             </div>
-          </div>
-          <div class="project-visual">
-            <img src="proj4.png" alt="ECORA" class="proj-img" />
+            <div class="mob-project-content">
+              <div class="mob-project-meta">
+                <span class="mob-project-num">04/04</span>
+                <span class="mob-project-cat">IoT Full-Stack</span>
+              </div>
+              <h3 class="mob-project-title">ECORA Waste System</h3>
+              <p class="mob-project-desc">
+                AI-enabled dustbins to classify waste with real-time IoT
+                monitoring.
+              </p>
+              <div class="mob-project-tags">
+                <span>React</span><span>Node</span><span>OpenCV</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1118,63 +1659,122 @@
 
     <!-- ABOUT -->
     <section id="about" style="background: var(--about-bg)">
-      <div class="about-grid">
-        <div class="about-image-wrap">
-          <img
-            src="bishal.jpg"
-            alt="Bishal"
-            style="width: 100%; height: 100%; object-fit: cover; display: block"
-          />
+      <div class="desktop-only">
+        <div class="about-grid">
+          <div class="about-image-wrap">
+            <img
+              src="bishal.jpg"
+              alt="Bishal"
+              style="
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+              "
+            />
+          </div>
+          <div class="about-content">
+            <div class="section-label">About Me</div>
+            <h2 class="section-title" style="margin-bottom: 2rem">
+              Turning ideas<br />into motion
+            </h2>
+            <p class="about-bio">
+              I'm <strong>Bishal Dutta</strong>, an AI/ML enthusiast and
+              Full-Stack Developer. I specialize in building intelligent
+              systems, bridging the gap between
+              <strong>machine learning and web applications</strong>. I have
+              experience in computer vision, deep learning architectures, and
+              modern web frameworks.
+            </p>
+            <p class="about-bio">
+              Currently obsessed with the intersection of
+              <strong>AI technologies</strong>, semantic segmentation, and
+              creating impactful real-world solutions.
+            </p>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-dot"></div>
+                Python / Java / C
+              </div>
+              <div class="skill-item">
+                <div class="skill-dot"></div>
+                React.js / Node.js
+              </div>
+              <div class="skill-item">
+                <div class="skill-dot"></div>
+                TensorFlow / Keras
+              </div>
+              <div class="skill-item">
+                <div class="skill-dot"></div>
+                OpenCV / CNNs
+              </div>
+              <div class="skill-item">
+                <div class="skill-dot"></div>
+                Streamlit / Flask
+              </div>
+              <div class="skill-item">
+                <div class="skill-dot"></div>
+                HTML5 / Tailwind
+              </div>
+              <div class="skill-item">
+                <div class="skill-dot"></div>
+                Pandas / NumPy
+              </div>
+              <div class="skill-item">
+                <div class="skill-dot"></div>
+                DSA / DBMS
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="about-content">
+      </div>
+      <div class="mobile-only block" style="width: 100%">
+        <div class="mob-about-img">
+          <img src="bishal.jpg" alt="Bishal Dutta" />
+        </div>
+        <div>
           <div class="section-label">About Me</div>
-          <h2 class="section-title" style="margin-bottom: 2rem">
+          <h2 class="section-title" style="margin-bottom: 1.5rem">
             Turning ideas<br />into motion
           </h2>
-          <p class="about-bio">
+          <p class="mob-about-bio">
             I'm <strong>Bishal Dutta</strong>, an AI/ML enthusiast and
             Full-Stack Developer. I specialize in building intelligent systems,
             bridging the gap between
-            <strong>machine learning and web applications</strong>. I have
-            experience in computer vision, deep learning architectures, and
-            modern web frameworks.
+            <strong>machine learning and web applications</strong>.
           </p>
-          <p class="about-bio">
-            Currently obsessed with the intersection of
-            <strong>AI technologies</strong>, semantic segmentation, and
-            creating impactful real-world solutions.
-          </p>
-          <div class="skills-grid">
-            <div class="skill-item">
-              <div class="skill-dot"></div>
-              Python / Java / C
+
+          <div class="mob-skills">
+            <div class="mob-skill-item">
+              <div class="dot"></div>
+              Python / Java
             </div>
-            <div class="skill-item">
-              <div class="skill-dot"></div>
-              React.js / Node.js
+            <div class="mob-skill-item">
+              <div class="dot"></div>
+              React / Node
             </div>
-            <div class="skill-item">
-              <div class="skill-dot"></div>
-              TensorFlow / Keras
+            <div class="mob-skill-item">
+              <div class="dot"></div>
+              TensorFlow
             </div>
-            <div class="skill-item">
-              <div class="skill-dot"></div>
-              OpenCV / CNNs
+            <div class="mob-skill-item">
+              <div class="dot"></div>
+              OpenCV
             </div>
-            <div class="skill-item">
-              <div class="skill-dot"></div>
+            <div class="mob-skill-item">
+              <div class="dot"></div>
               Streamlit / Flask
             </div>
-            <div class="skill-item">
-              <div class="skill-dot"></div>
-              HTML5 / Tailwind
+            <div class="mob-skill-item">
+              <div class="dot"></div>
+              Tailwind CSS
             </div>
-            <div class="skill-item">
-              <div class="skill-dot"></div>
-              Pandas / NumPy
+            <div class="mob-skill-item">
+              <div class="dot"></div>
+              Pandas/NumPy
             </div>
-            <div class="skill-item">
-              <div class="skill-dot"></div>
+            <div class="mob-skill-item">
+              <div class="dot"></div>
               DSA / DBMS
             </div>
           </div>
@@ -1184,142 +1784,303 @@
 
     <!-- SERVICES -->
     <section id="services">
-      <div class="section-header">
-        <div>
+      <div class="desktop-only">
+        <div class="section-header">
+          <div>
+            <div class="section-label">What I Do</div>
+            <h2 class="section-title">Services &<br />Expertise</h2>
+          </div>
+        </div>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-num">01</div>
+            <svg class="service-icon" viewBox="0 0 48 48" fill="none">
+              <rect
+                x="4"
+                y="4"
+                width="40"
+                height="40"
+                rx="4"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M16 24l6 6 10-12"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <div class="service-title">3D Web Experiences</div>
+            <p class="service-desc">
+              Immersive WebGL and Three.js environments that push the boundaries
+              of what's possible in a browser. Real-time rendering, custom
+              shaders, physics simulation.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-num">02</div>
+            <svg class="service-icon" viewBox="0 0 48 48" fill="none">
+              <circle
+                cx="24"
+                cy="24"
+                r="18"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M24 6v6M24 36v6M6 24h6M36 24h6"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            <div class="service-title">AI/ML Development</div>
+            <p class="service-desc">
+              Choreographed intelligent, data-driven solutions using machine
+              learning and deep learning for real-world impact.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-num">03</div>
+            <svg class="service-icon" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M8 12h32M8 24h20M8 36h26"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            <div class="service-title">UI / UX Design</div>
+            <p class="service-desc">
+              End-to-end product design from wireframes to high-fidelity
+              prototypes. Design systems, accessibility-first, and component
+              libraries that scale.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-only block" style="width: 100%">
+        <div class="section-header">
           <div class="section-label">What I Do</div>
           <h2 class="section-title">Services &<br />Expertise</h2>
         </div>
-      </div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-num">01</div>
-          <svg class="service-icon" viewBox="0 0 48 48" fill="none">
-            <rect
-              x="4"
-              y="4"
-              width="40"
-              height="40"
-              rx="4"
-              stroke="currentColor"
-              stroke-width="1.5"
-            />
-            <path
-              d="M16 24l6 6 10-12"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <div class="service-title">3D Web Experiences</div>
-          <p class="service-desc">
-            Immersive WebGL and Three.js environments that push the boundaries
-            of what's possible in a browser. Real-time rendering, custom
-            shaders, physics simulation.
-          </p>
-        </div>
-        <div class="service-card">
-          <div class="service-num">02</div>
-          <svg class="service-icon" viewBox="0 0 48 48" fill="none">
-            <circle
-              cx="24"
-              cy="24"
-              r="18"
-              stroke="currentColor"
-              stroke-width="1.5"
-            />
-            <path
-              d="M24 6v6M24 36v6M6 24h6M36 24h6"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-            />
-          </svg>
-          <div class="service-title">AI/ML Development</div>
-          <p class="service-desc">
-            Choreographed intelligent, data-driven solutions using machine
-            learning and deep learning for real-world impact.
-          </p>
-        </div>
-        <div class="service-card">
-          <div class="service-num">03</div>
-          <svg class="service-icon" viewBox="0 0 48 48" fill="none">
-            <path
-              d="M8 12h32M8 24h20M8 36h26"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-            />
-          </svg>
-          <div class="service-title">UI / UX Design</div>
-          <p class="service-desc">
-            End-to-end product design from wireframes to high-fidelity
-            prototypes. Design systems, accessibility-first, and component
-            libraries that scale.
-          </p>
+
+        <div class="mob-services">
+          <div class="mob-service-card">
+            <svg class="mob-service-icon" viewBox="0 0 48 48" fill="none">
+              <rect
+                x="4"
+                y="4"
+                width="40"
+                height="40"
+                rx="4"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M16 24l6 6 10-12"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            <div class="mob-service-title">3D Experiences</div>
+            <p class="mob-service-desc">
+              WebGL and Three.js environments tailored for immersive web
+              presence.
+            </p>
+          </div>
+
+          <div class="mob-service-card">
+            <svg class="mob-service-icon" viewBox="0 0 48 48" fill="none">
+              <circle
+                cx="24"
+                cy="24"
+                r="18"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M24 6v6M24 36v6M6 24h6M36 24h6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            <div class="mob-service-title">AI / ML Dev</div>
+            <p class="mob-service-desc">
+              Intelligent, data-driven solutions using deep learning
+              architectures.
+            </p>
+          </div>
+
+          <div class="mob-service-card">
+            <svg class="mob-service-icon" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M8 12h32M8 24h20M8 36h26"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            <div class="mob-service-title">UI / UX Design</div>
+            <p class="mob-service-desc">
+              End-to-end design from wireframes to highly interactive
+              interfaces.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
     <section class="contact-section" id="contact">
-      <canvas class="contact-canvas" id="contact3d"></canvas>
-      <div class="contact-inner">
-        <div class="contact-label">✦ Open to opportunities</div>
-        <h2 class="contact-title">
-          Let's<br />
-          <span class="ghost">Create</span><br />
-          Together
+      <div class="desktop-only">
+        <canvas class="contact-canvas" id="contact3d"></canvas>
+        <div class="contact-inner">
+          <div class="contact-label">✦ Open to opportunities</div>
+          <h2 class="contact-title">
+            Let's<br />
+            <span class="ghost">Create</span><br />
+            Together
+          </h2>
+          <p class="contact-sub">
+            Have a project in mind? I'd love to hear about it. Let's build
+            something extraordinary.
+          </p>
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 1rem;
+            "
+          >
+            <a href="mailto:bishaldutta661@gmail.com" class="contact-email"
+              >bishaldutta661@gmail.com →</a
+            >
+            <a href="tel:+919064076209" class="contact-email"
+              >+91 9064076209 →</a
+            >
+          </div>
+          <div class="social-row">
+            <a
+              href="https://github.com/bishaldutta11?tab=repositories"
+              class="social-link"
+              target="_blank"
+              >GitHub</a
+            >
+            <a
+              href="https://www.linkedin.com/in/bishal-dutta-26780a28b"
+              class="social-link"
+              target="_blank"
+              >LinkedIn</a
+            >
+            <a
+              href="https://www.instagram.com/bishaldutta_11?igsh=MTJhODJlcm5raWdtaQ=="
+              class="social-link"
+              target="_blank"
+              >Instagram</a
+            >
+            <a
+              href="https://wa.me/qr/6QHWMXF4KJHSO1"
+              class="social-link"
+              target="_blank"
+              >WhatsApp</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="mobile-only block" style="width: 100%">
+        <div class="section-label" style="color: var(--accent)">
+          ✦ Open to work
+        </div>
+        <h2 class="mob-contact-title">
+          Let's<br /><span class="ghost">Create</span><br />Together
         </h2>
-        <p class="contact-sub">
-          Have a project in mind? I'd love to hear about it. Let's build
-          something extraordinary.
+        <p class="mob-contact-sub">
+          Have a project in mind? Let's build something extraordinary.
         </p>
-        <div
-          style="
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-          "
-        >
-          <a href="mailto:bishaldutta661@gmail.com" class="contact-email"
+
+        <div class="mob-contact-links">
+          <a href="mailto:bishaldutta661@gmail.com"
             >bishaldutta661@gmail.com →</a
           >
-          <a href="tel:+919064076209" class="contact-email">+91 9064076209 →</a>
+          <a href="tel:+919064076209">+91 9064076209 →</a>
         </div>
-        <div class="social-row">
+
+        <div class="mob-socials">
           <a
             href="https://github.com/bishaldutta11?tab=repositories"
-            class="social-link"
             target="_blank"
             >GitHub</a
           >
           <a
             href="https://www.linkedin.com/in/bishal-dutta-26780a28b"
-            class="social-link"
             target="_blank"
             >LinkedIn</a
           >
           <a
             href="https://www.instagram.com/bishaldutta_11?igsh=MTJhODJlcm5raWdtaQ=="
-            class="social-link"
             target="_blank"
-            >Instagram</a
-          >
-          <a
-            href="https://wa.me/qr/6QHWMXF4KJHSO1"
-            class="social-link"
-            target="_blank"
-            >WhatsApp</a
+            >Insta</a
           >
         </div>
       </div>
     </section>
 
-    <footer>
-      <div class="footer-copy">
-        © Bishal Dutta<span>.</span> All rights reserved.
+    <div class="bottom-nav mobile-only flex" style="display: flex">
+      <a href="#home">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        Home
+      </a>
+      <a href="#work">
+        <svg viewBox="0 0 24 24">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+        Work
+      </a>
+      <a href="#about">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        About
+      </a>
+      <a href="#contact">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+          ></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+        Contact
+      </a>
+      <a href="Home.html" class="hire-nav">
+        <svg viewBox="0 0 24 24">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+        </svg>
+        Hire Me
+      </a>
+    </div>
+
+    <footer class="desktop-only">
+      <div class="footer-copy">© Bishal Dutta<span>.</span></div>
+      <div class="footer-copy" style="display: flex; align-items: center; gap: 0.4rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        bishaldutta661@gmail.com
+      </div>
+      <div class="footer-copy" style="display: flex; align-items: center; gap: 0.4rem;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        +91-9064076209
       </div>
     </footer>
 
@@ -1370,7 +2131,7 @@
         { threshold: 0.1 },
       );
       document
-        .querySelectorAll(".stat-item, .project-card, .service-card")
+        .querySelectorAll(".stat-item, .project-card, .service-card, .mob-project-card, .mob-service-card")
         .forEach((el) => obs.observe(el));
 
       /* ─── 3D HERO SCENE ─── */
@@ -1596,13 +2357,15 @@
         .querySelectorAll('.proj-canvas[data-scene="particles"]')
         .forEach((c) => {
           const ctx = c.getContext("2d");
-          let W, H, frame = 0;
+          let W,
+            H,
+            frame = 0;
           const particles = Array.from({ length: 150 }, () => ({
             x: Math.random(),
             y: Math.random(),
             z: Math.random(), // depth 0 to 1
             ox: Math.random(),
-            oy: Math.random()
+            oy: Math.random(),
           }));
           function resize() {
             const rect = c.parentElement.getBoundingClientRect();
@@ -1616,10 +2379,11 @@
           resize();
           function loop() {
             ctx.clearRect(0, 0, W, H);
-            const w = W, h = H;
-            
-            const scanY = (frame * 0.005) % 1.2 - 0.1; // sweeps from top to bottom
-            
+            const w = W,
+              h = H;
+
+            const scanY = ((frame * 0.005) % 1.2) - 0.1; // sweeps from top to bottom
+
             // Draw scan line
             ctx.beginPath();
             ctx.moveTo(0, scanY * h);
@@ -1627,21 +2391,28 @@
             ctx.strokeStyle = "rgba(0, 255, 128, 0.4)";
             ctx.lineWidth = 1.5;
             ctx.stroke();
-            
+
             // Scan line glow
-            const grad = ctx.createLinearGradient(0, scanY*h - 30, 0, scanY*h + 10);
+            const grad = ctx.createLinearGradient(
+              0,
+              scanY * h - 30,
+              0,
+              scanY * h + 10,
+            );
             grad.addColorStop(0, "rgba(0, 255, 128, 0)");
             grad.addColorStop(0.8, "rgba(0, 255, 128, 0.15)");
             grad.addColorStop(1, "rgba(0, 255, 128, 0)");
             ctx.fillStyle = grad;
-            ctx.fillRect(0, scanY*h - 30, w, 40);
+            ctx.fillRect(0, scanY * h - 30, w, 40);
 
             particles.forEach((p) => {
               p.x = p.ox + Math.sin(frame * 0.01 + p.z * 10) * 0.01;
               p.y = p.oy + Math.cos(frame * 0.01 + p.z * 10) * 0.01;
-              if (p.x < 0) p.x += 1; if (p.x > 1) p.x -= 1;
-              if (p.y < 0) p.y += 1; if (p.y > 1) p.y -= 1;
-              
+              if (p.x < 0) p.x += 1;
+              if (p.x > 1) p.x -= 1;
+              if (p.y < 0) p.y += 1;
+              if (p.y > 1) p.y -= 1;
+
               const distToScan = Math.abs(p.y - scanY);
               let opacity = 0.15;
               let sizeMultiplier = 1;
@@ -1658,7 +2429,7 @@
               const scale = 1 + p.z;
               const px = p.x * w;
               const py = p.y * h;
-              
+
               ctx.beginPath();
               ctx.arc(px, py, 1.2 * scale * sizeMultiplier, 0, Math.PI * 2);
               ctx.fillStyle = color + opacity + ")";
@@ -1666,24 +2437,25 @@
             });
 
             ctx.lineWidth = 0.6;
-            for(let i=0; i<particles.length; i++) {
-               const p1 = particles[i];
-               const distToScan1 = Math.abs(p1.y - scanY);
-               if (distToScan1 > 0.15) continue;
-               
-               for(let j=i+1; j<particles.length; j++) {
-                  const p2 = particles[j];
-                  const dx = p1.x - p2.x;
-                  const dy = p1.y - p2.y;
-                  const dist = Math.sqrt(dx*dx + dy*dy);
-                  if (dist < 0.06) {
-                     ctx.beginPath();
-                     ctx.moveTo(p1.x * w, p1.y * h);
-                     ctx.lineTo(p2.x * w, p2.y * h);
-                     ctx.strokeStyle = "rgba(0, 255, 128, " + (0.3 * (1 - dist/0.06)) + ")";
-                     ctx.stroke();
-                  }
-               }
+            for (let i = 0; i < particles.length; i++) {
+              const p1 = particles[i];
+              const distToScan1 = Math.abs(p1.y - scanY);
+              if (distToScan1 > 0.15) continue;
+
+              for (let j = i + 1; j < particles.length; j++) {
+                const p2 = particles[j];
+                const dx = p1.x - p2.x;
+                const dy = p1.y - p2.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 0.06) {
+                  ctx.beginPath();
+                  ctx.moveTo(p1.x * w, p1.y * h);
+                  ctx.lineTo(p2.x * w, p2.y * h);
+                  ctx.strokeStyle =
+                    "rgba(0, 255, 128, " + 0.3 * (1 - dist / 0.06) + ")";
+                  ctx.stroke();
+                }
+              }
             }
 
             frame++;
@@ -1897,9 +2669,26 @@
         themeToggle.addEventListener("click", () => {
           const isDark = document.body.getAttribute("data-theme") === "dark";
           document.body.setAttribute("data-theme", isDark ? "light" : "dark");
-          themeToggle.textContent = isDark ? "Dark Mode" : "Light Mode";
         });
       }
+
+      // Smooth scroll for bottom navigation items
+      document.querySelectorAll(".bottom-nav a").forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          const href = this.getAttribute("href");
+          if (href.startsWith("#")) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 60,
+                behavior: "smooth",
+              });
+            }
+          }
+        });
+      });
     </script>
   </body>
 </html>
