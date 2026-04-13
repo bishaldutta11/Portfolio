@@ -603,10 +603,32 @@
         border-color: rgba(255, 255, 255, 0.15);
       }
       .project-visual canvas {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
         width: 100%;
         height: 100%;
         display: block;
         transition: opacity 0.4s;
+        mix-blend-mode: screen;
+      }
+      .proj-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+      }
+      .project-card:hover .proj-img {
+        transform: scale(1.05);
+      }
+      .project-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s;
+      }
+      .project-card:active .proj-img {
+        transform: scale(1.05);
       }
 
       /* ABOUT */
@@ -862,9 +884,17 @@
           padding: 7rem 1.5rem 3rem;
           gap: 3rem;
         }
-        .hero-visual,
-        .project-visual {
+        .hero-visual {
           display: none;
+        }
+        .project-visual {
+          width: 100%;
+          height: 200px;
+          margin-top: 1.5rem;
+          border-radius: 8px;
+        }
+        .project-card {
+          padding: 2rem 1.5rem;
         }
         .stats-strip {
           flex-direction: column;
@@ -880,6 +910,8 @@
         .project-card.featured {
           grid-column: span 1;
           grid-template-columns: 1fr;
+          padding: 2rem 1.5rem;
+          gap: 1.5rem;
         }
         .about-grid {
           grid-template-columns: 1fr;
@@ -1021,48 +1053,64 @@
           </div>
           <div class="project-visual">
             <canvas class="proj-canvas" data-scene="particles"></canvas>
+            <img src="proj1.png" alt="TerraSeg" class="proj-img" />
           </div>
         </div>
         <!-- Card 2 -->
-        <div class="project-card">
-          <div class="project-num">02 / 04</div>
-          <div class="project-cat">Machine Learning</div>
-          <h3 class="project-title">Deepfake Image Detection</h3>
-          <p class="project-desc">
-            Developed a deep learning-based system to accurately classify facial
-            images as real or fake.
-          </p>
-          <div class="project-tags">
-            <span>CNN</span><span>TensorFlow</span><span>Keras</span
-            ><span>Streamlit</span>
+        <div class="project-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="project-content">
+            <div class="project-num">02 / 04</div>
+            <div class="project-cat">Machine Learning</div>
+            <h3 class="project-title">Deepfake Image Detection</h3>
+            <p class="project-desc">
+              Developed a deep learning-based system to accurately classify facial
+              images as real or fake.
+            </p>
+            <div class="project-tags">
+              <span>CNN</span><span>TensorFlow</span><span>Keras</span
+              ><span>Streamlit</span>
+            </div>
+          </div>
+          <div class="project-visual">
+            <img src="proj2.png" alt="Deepfake Detection" class="proj-img" />
           </div>
         </div>
         <!-- Card 3 -->
-        <div class="project-card">
-          <div class="project-num">03 / 04</div>
-          <div class="project-cat">Deep Learning</div>
-          <h3 class="project-title">Plant Disease Prediction</h3>
-          <p class="project-desc">
-            Implemented a detection model using CNN architecture to classify
-            plant leaf images into various disease categories.
-          </p>
-          <div class="project-tags">
-            <span>CNN</span><span>TensorFlow</span><span>NumPy</span
-            ><span>Pandas</span>
+        <div class="project-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="project-content">
+            <div class="project-num">03 / 04</div>
+            <div class="project-cat">Deep Learning</div>
+            <h3 class="project-title">Plant Disease Prediction</h3>
+            <p class="project-desc">
+              Implemented a detection model using CNN architecture to classify
+              plant leaf images into various disease categories.
+            </p>
+            <div class="project-tags">
+              <span>CNN</span><span>TensorFlow</span><span>NumPy</span
+              ><span>Pandas</span>
+            </div>
+          </div>
+          <div class="project-visual">
+            <img src="proj3.png" alt="Plant Disease" class="proj-img" />
           </div>
         </div>
         <!-- Card 4 -->
-        <div class="project-card">
-          <div class="project-num">04 / 04</div>
-          <div class="project-cat">AI / IoT Full-Stack</div>
-          <h3 class="project-title">ECORA — Smart Waste Management</h3>
-          <p class="project-desc">
-            A smart waste system that uses AI-enabled dustbins to automatically
-            classify waste and IoT sensors for real-time monitoring.
-          </p>
-          <div class="project-tags">
-            <span>React.js</span><span>Node.js</span><span>OpenCV</span
-            ><span>IoT</span>
+        <div class="project-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="project-content">
+            <div class="project-num">04 / 04</div>
+            <div class="project-cat">AI / IoT Full-Stack</div>
+            <h3 class="project-title">ECORA — Smart Waste Management</h3>
+            <p class="project-desc">
+              A smart waste system that uses AI-enabled dustbins to automatically
+              classify waste and IoT sensors for real-time monitoring.
+            </p>
+            <div class="project-tags">
+              <span>React.js</span><span>Node.js</span><span>OpenCV</span
+              ><span>IoT</span>
+            </div>
+          </div>
+          <div class="project-visual">
+            <img src="proj4.png" alt="ECORA" class="proj-img" />
           </div>
         </div>
       </div>
@@ -1543,69 +1591,101 @@
         loop();
       })();
 
-      /* ─── PARTICLE PROJECT CANVAS ─── */
+      /* ─── PARTICLE SCANNING PROJECT CANVAS ─── */
       document
         .querySelectorAll('.proj-canvas[data-scene="particles"]')
         .forEach((c) => {
           const ctx = c.getContext("2d");
-          let W,
-            H,
-            frame = 0;
-          const particles = Array.from({ length: 120 }, () => ({
+          let W, H, frame = 0;
+          const particles = Array.from({ length: 150 }, () => ({
             x: Math.random(),
             y: Math.random(),
-            vx: (Math.random() - 0.5) * 0.001,
-            vy: (Math.random() - 0.5) * 0.001,
-            r: Math.random() * 2 + 0.5,
-            hue: Math.random() < 0.3 ? "#ff3f00" : "#0057ff",
+            z: Math.random(), // depth 0 to 1
+            ox: Math.random(),
+            oy: Math.random()
           }));
           function resize() {
             const rect = c.parentElement.getBoundingClientRect();
             W = c.width = rect.width * devicePixelRatio;
             H = c.height = rect.height * devicePixelRatio;
+            ctx.scale(devicePixelRatio, devicePixelRatio);
+            W /= devicePixelRatio;
+            H /= devicePixelRatio;
           }
           window.addEventListener("resize", resize);
           resize();
           function loop() {
             ctx.clearRect(0, 0, W, H);
-            const s = devicePixelRatio;
+            const w = W, h = H;
+            
+            const scanY = (frame * 0.005) % 1.2 - 0.1; // sweeps from top to bottom
+            
+            // Draw scan line
+            ctx.beginPath();
+            ctx.moveTo(0, scanY * h);
+            ctx.lineTo(w, scanY * h);
+            ctx.strokeStyle = "rgba(0, 255, 128, 0.4)";
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            
+            // Scan line glow
+            const grad = ctx.createLinearGradient(0, scanY*h - 30, 0, scanY*h + 10);
+            grad.addColorStop(0, "rgba(0, 255, 128, 0)");
+            grad.addColorStop(0.8, "rgba(0, 255, 128, 0.15)");
+            grad.addColorStop(1, "rgba(0, 255, 128, 0)");
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, scanY*h - 30, w, 40);
+
             particles.forEach((p) => {
-              p.x += p.vx;
-              p.y += p.vy;
-              if (p.x < 0) p.x = 1;
-              if (p.x > 1) p.x = 0;
-              if (p.y < 0) p.y = 1;
-              if (p.y > 1) p.y = 0;
+              p.x = p.ox + Math.sin(frame * 0.01 + p.z * 10) * 0.01;
+              p.y = p.oy + Math.cos(frame * 0.01 + p.z * 10) * 0.01;
+              if (p.x < 0) p.x += 1; if (p.x > 1) p.x -= 1;
+              if (p.y < 0) p.y += 1; if (p.y > 1) p.y -= 1;
+              
+              const distToScan = Math.abs(p.y - scanY);
+              let opacity = 0.15;
+              let sizeMultiplier = 1;
+              const isGreen = p.z > 0.5;
+              let color = isGreen ? "rgba(0, 255, 128, " : "rgba(0, 150, 255, ";
+
+              if (distToScan < 0.15) {
+                opacity = 1.0 - (distToScan / 0.15) * 0.5;
+                sizeMultiplier = 1.5;
+              } else if (p.y < scanY) {
+                opacity = 0.3;
+              }
+
+              const scale = 1 + p.z;
+              const px = p.x * w;
+              const py = p.y * h;
+              
               ctx.beginPath();
-              ctx.arc(
-                (p.x * W) / s,
-                (p.y * H) / s,
-                p.r * s * 0.8,
-                0,
-                Math.PI * 2,
-              );
-              ctx.fillStyle = p.hue;
-              ctx.globalAlpha = 0.7;
+              ctx.arc(px, py, 1.2 * scale * sizeMultiplier, 0, Math.PI * 2);
+              ctx.fillStyle = color + opacity + ")";
               ctx.fill();
             });
-            // Lines
-            ctx.globalAlpha = 0.15;
-            particles.forEach((a, i) => {
-              particles.slice(i + 1, i + 6).forEach((b) => {
-                const dx = a.x - b.x,
-                  dy = a.y - b.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 0.15) {
-                  ctx.beginPath();
-                  ctx.moveTo((a.x * W) / s, (a.y * H) / s);
-                  ctx.lineTo((b.x * W) / s, (b.y * H) / s);
-                  ctx.strokeStyle = "#0a0a0f";
-                  ctx.lineWidth = 0.5;
-                  ctx.stroke();
-                }
-              });
-            });
-            ctx.globalAlpha = 1;
+
+            ctx.lineWidth = 0.6;
+            for(let i=0; i<particles.length; i++) {
+               const p1 = particles[i];
+               const distToScan1 = Math.abs(p1.y - scanY);
+               if (distToScan1 > 0.15) continue;
+               
+               for(let j=i+1; j<particles.length; j++) {
+                  const p2 = particles[j];
+                  const dx = p1.x - p2.x;
+                  const dy = p1.y - p2.y;
+                  const dist = Math.sqrt(dx*dx + dy*dy);
+                  if (dist < 0.06) {
+                     ctx.beginPath();
+                     ctx.moveTo(p1.x * w, p1.y * h);
+                     ctx.lineTo(p2.x * w, p2.y * h);
+                     ctx.strokeStyle = "rgba(0, 255, 128, " + (0.3 * (1 - dist/0.06)) + ")";
+                     ctx.stroke();
+                  }
+               }
+            }
+
             frame++;
             requestAnimationFrame(loop);
           }
