@@ -893,6 +893,52 @@
         color: #f5f3ee;
       }
 
+      /* RESUME BUTTON */
+      .btn-creative-resume {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 1rem 2.5rem;
+        background: #f5f3ee;
+        color: #0a0a0f;
+        font-family: "DM Mono", monospace;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        border-radius: 50px;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+        box-shadow: 0 10px 24px rgba(255, 63, 0, 0.15);
+      }
+      .btn-creative-resume::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: #e84c2b;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 1;
+      }
+      .btn-creative-resume:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(255, 63, 0, 0.3);
+        color: #f5f3ee;
+      }
+      .btn-creative-resume:hover::before {
+        opacity: 1;
+      }
+      .btn-creative-resume > * {
+        position: relative;
+        z-index: 2;
+      }
+      @keyframes gradientMoveBtn {
+        0% { background-position: 100% 0; }
+        100% { background-position: -100% 0; }
+      }
+
       /* FOOTER */
       footer {
         display: flex;
@@ -944,6 +990,91 @@
           grid-template-columns: 1fr;
           padding: 7rem 1.5rem 3rem;
           gap: 3rem;
+        }
+        .hero-ctas {
+          flex-direction: column;
+          align-items: stretch;
+          width: 100%;
+          gap: 1.5rem;
+          margin-top: 1rem;
+        }
+        .btn-primary {
+          font-family: "DM Mono", monospace;
+          font-size: 0.85rem !important;
+          font-weight: 600 !important;
+          padding: 0.85rem 1.4rem !important;
+          border: 1.5px solid #000 !important;
+          background: var(--accent) !important;
+          color: #fff !important;
+          text-transform: uppercase;
+          text-align: center;
+          letter-spacing: 0.05em;
+          box-shadow: 4px 4px 0 #000 !important;
+          justify-content: center;
+          display: flex;
+          border-radius: 0 !important;
+          transition: all 0.2s ease;
+        }
+        .btn-primary::after {
+          display: none !important;
+        }
+        .btn-primary:active {
+          transform: translate(4px, 4px);
+          box-shadow: 0px 0px 0 #000 !important;
+        }
+        [data-theme="dark"] .btn-primary {
+          box-shadow: 4px 4px 0 #fff !important;
+          border-color: #fff !important;
+        }
+        [data-theme="dark"] .btn-primary:active {
+          box-shadow: 0px 0px 0 #fff !important;
+        }
+        .btn-secondary {
+          font-family: "DM Mono", monospace;
+          font-size: 0.85rem !important;
+          font-weight: 600 !important;
+          padding: 0.85rem 1.4rem !important;
+          border: 1.5px solid var(--ink) !important;
+          color: var(--ink) !important;
+          background: var(--paper) !important;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          justify-content: center;
+          display: flex;
+          position: relative;
+          overflow: hidden;
+          border-radius: 0 !important;
+        }
+        .btn-secondary::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-image: repeating-linear-gradient(
+            45deg,
+            var(--accent) 0,
+            var(--accent) 10px,
+            transparent 10px,
+            transparent 20px
+          );
+          background-size: 28px 28px;
+          opacity: 0.15;
+          animation: slideStripes 2s linear infinite;
+          z-index: 0;
+        }
+        @keyframes slideStripes {
+          0% { background-position: 0 0; }
+          100% { background-position: -28px 0; }
+        }
+        .btn-secondary > * {
+          position: relative;
+          z-index: 1;
+        }
+        .btn-secondary:active, .btn-secondary:active .arrow {
+          background: var(--ink) !important;
+          color: var(--paper) !important;
+        }
+        .btn-secondary:active::before {
+          opacity: 0;
         }
         .hero-visual {
           display: none;
@@ -1015,29 +1146,6 @@
         display: none !important;
       }
       @media (max-width: 900px) {
-        .desktop-only {
-          display: none !important;
-        }
-        .mobile-only {
-          display: flex !important;
-        }
-        .mobile-only.block {
-          display: block !important;
-        }
-        .mobile-only.grid {
-          display: grid !important;
-        }
-
-        .projects-grid {
-          display: none !important;
-        }
-        .services-grid {
-          display: none !important;
-        }
-        .about-grid {
-          display: none !important;
-        }
-
         nav .nav-links {
           display: none !important;
         }
@@ -1446,220 +1554,8 @@
         ><span class="dot">●</span>
       </div>
     </div>
-
-    <!-- WORK -->
-    <section id="work">
-      <div class="desktop-only">
-        <div class="section-header">
-          <div>
-            <div class="section-label">Selected Work</div>
-            <h2 class="section-title">Projects that<br />move people</h2>
-          </div>
-          <a href="#" class="section-link">All projects →</a>
-        </div>
-        <div class="projects-grid">
-          <!-- Featured -->
-          <div class="project-card featured">
-            <div>
-              <div class="project-num">01 / 04</div>
-              <div class="project-cat">AI / Computer Vision</div>
-              <h3 class="project-title">
-                TerraSeg — LULC Satellite Segmentation
-              </h3>
-              <p class="project-desc">
-                An advanced platform for Semantic Segmentation of satellite
-                imagery, categorizing pixels into classes like Buildings, Roads,
-                Water, and Vegetation for urban planning and environmental
-                monitoring.
-              </p>
-              <div class="project-tags">
-                <span>ResU-Net</span><span>TensorFlow</span><span>OpenCV</span
-                ><span>Streamlit</span>
-              </div>
-            </div>
-            <div class="project-visual">
-              <canvas class="proj-canvas" data-scene="particles"></canvas>
-              <img src="proj1.png" alt="TerraSeg" class="proj-img" />
-            </div>
-          </div>
-          <!-- Card 2 -->
-          <div
-            class="project-card"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-            "
-          >
-            <div class="project-content">
-              <div class="project-num">02 / 04</div>
-              <div class="project-cat">Machine Learning</div>
-              <h3 class="project-title">Deepfake Image Detection</h3>
-              <p class="project-desc">
-                Developed a deep learning-based system to accurately classify
-                facial images as real or fake.
-              </p>
-              <div class="project-tags">
-                <span>CNN</span><span>TensorFlow</span><span>Keras</span
-                ><span>Streamlit</span>
-              </div>
-            </div>
-            <div class="project-visual">
-              <img src="proj2.png" alt="Deepfake Detection" class="proj-img" />
-            </div>
-          </div>
-          <!-- Card 3 -->
-          <div
-            class="project-card"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-            "
-          >
-            <div class="project-content">
-              <div class="project-num">03 / 04</div>
-              <div class="project-cat">Deep Learning</div>
-              <h3 class="project-title">Plant Disease Prediction</h3>
-              <p class="project-desc">
-                Implemented a detection model using CNN architecture to classify
-                plant leaf images into various disease categories.
-              </p>
-              <div class="project-tags">
-                <span>CNN</span><span>TensorFlow</span><span>NumPy</span
-                ><span>Pandas</span>
-              </div>
-            </div>
-            <div class="project-visual">
-              <img src="proj3.png" alt="Plant Disease" class="proj-img" />
-            </div>
-          </div>
-          <!-- Card 4 -->
-          <div
-            class="project-card"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-            "
-          >
-            <div class="project-content">
-              <div class="project-num">04 / 04</div>
-              <div class="project-cat">AI / IoT Full-Stack</div>
-              <h3 class="project-title">ECORA — Smart Waste Management</h3>
-              <p class="project-desc">
-                A smart waste system that uses AI-enabled dustbins to
-                automatically classify waste and IoT sensors for real-time
-                monitoring.
-              </p>
-              <div class="project-tags">
-                <span>React.js</span><span>Node.js</span><span>OpenCV</span
-                ><span>IoT</span>
-              </div>
-            </div>
-            <div class="project-visual">
-              <img src="proj4.png" alt="ECORA" class="proj-img" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="mobile-only block" style="width: 100%">
-        <div class="section-header">
-          <div class="section-label">Selected Work</div>
-          <h2 class="section-title">Projects that<br />move people</h2>
-        </div>
-
-        <div class="mobile-projects">
-          <!-- Project 1 -->
-          <div class="mob-project-card">
-            <div class="mob-project-visual">
-              <img src="proj1.png" alt="TerraSeg" />
-            </div>
-            <div class="mob-project-content">
-              <div class="mob-project-meta">
-                <span class="mob-project-num">01/04</span>
-                <span class="mob-project-cat">AI Vision</span>
-              </div>
-              <h3 class="mob-project-title">TerraSeg</h3>
-              <p class="mob-project-desc">
-                Semantic Segmentation of satellite imagery for urban planning.
-              </p>
-              <div class="mob-project-tags">
-                <span>ResU-Net</span><span>TensorFlow</span
-                ><span>Streamlit</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 2 -->
-          <div class="mob-project-card">
-            <div class="mob-project-visual">
-              <img src="proj2.png" alt="Deepfake" />
-            </div>
-            <div class="mob-project-content">
-              <div class="mob-project-meta">
-                <span class="mob-project-num">02/04</span>
-                <span class="mob-project-cat">Machine Learning</span>
-              </div>
-              <h3 class="mob-project-title">Deepfake Detection</h3>
-              <p class="mob-project-desc">
-                Deep learning system to accurately classify images as real or
-                fake.
-              </p>
-              <div class="mob-project-tags">
-                <span>CNN</span><span>TensorFlow</span><span>Keras</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 3 -->
-          <div class="mob-project-card">
-            <div class="mob-project-visual">
-              <img src="proj3.png" alt="Plant Disease" />
-            </div>
-            <div class="mob-project-content">
-              <div class="mob-project-meta">
-                <span class="mob-project-num">03/04</span>
-                <span class="mob-project-cat">Deep Learning</span>
-              </div>
-              <h3 class="mob-project-title">Plant Disease AI</h3>
-              <p class="mob-project-desc">
-                CNN architecture classifying leaf images into disease
-                categories.
-              </p>
-              <div class="mob-project-tags">
-                <span>CNN</span><span>NumPy</span><span>Pandas</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 4 -->
-          <div class="mob-project-card">
-            <div class="mob-project-visual">
-              <img src="proj4.png" alt="ECORA" />
-            </div>
-            <div class="mob-project-content">
-              <div class="mob-project-meta">
-                <span class="mob-project-num">04/04</span>
-                <span class="mob-project-cat">IoT Full-Stack</span>
-              </div>
-              <h3 class="mob-project-title">ECORA Waste System</h3>
-              <p class="mob-project-desc">
-                AI-enabled dustbins to classify waste with real-time IoT
-                monitoring.
-              </p>
-              <div class="mob-project-tags">
-                <span>React</span><span>Node</span><span>OpenCV</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ABOUT -->
     <section id="about" style="background: var(--about-bg)">
-      <div class="desktop-only">
         <div class="about-grid">
           <div class="about-image-wrap">
             <img
@@ -1727,64 +1623,131 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="mobile-only block" style="width: 100%">
-        <div class="mob-about-img">
-          <img src="bishal.jpg" alt="Bishal Dutta" />
-        </div>
-        <div>
-          <div class="section-label">About Me</div>
-          <h2 class="section-title" style="margin-bottom: 1.5rem">
-            Turning ideas<br />into motion
-          </h2>
-          <p class="mob-about-bio">
-            I'm <strong>Bishal Dutta</strong>, an AI/ML enthusiast and
-            Full-Stack Developer. I specialize in building intelligent systems,
-            bridging the gap between
-            <strong>machine learning and web applications</strong>.
-          </p>
-
-          <div class="mob-skills">
-            <div class="mob-skill-item">
-              <div class="dot"></div>
-              Python / Java
-            </div>
-            <div class="mob-skill-item">
-              <div class="dot"></div>
-              React / Node
-            </div>
-            <div class="mob-skill-item">
-              <div class="dot"></div>
-              TensorFlow
-            </div>
-            <div class="mob-skill-item">
-              <div class="dot"></div>
-              OpenCV
-            </div>
-            <div class="mob-skill-item">
-              <div class="dot"></div>
-              Streamlit / Flask
-            </div>
-            <div class="mob-skill-item">
-              <div class="dot"></div>
-              Tailwind CSS
-            </div>
-            <div class="mob-skill-item">
-              <div class="dot"></div>
-              Pandas/NumPy
-            </div>
-            <div class="mob-skill-item">
-              <div class="dot"></div>
-              DSA / DBMS
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
-
+    <!-- WORK -->
+    <section id="work">
+        <div class="section-header">
+          <div>
+            <div class="section-label">Selected Work</div>
+            <h2 class="section-title">Projects that<br />move people</h2>
+          </div>
+          <a href="#" class="section-link">All projects →</a>
+        </div>
+        <div class="projects-grid">
+          <!-- Featured -->
+          <a href="https://github.com/bishaldutta11/TERRASEG--LULC-satellite-image-segmentation." target="_blank" class="project-card featured" style="text-decoration: none; color: inherit;">
+            <div>
+              <div class="project-num">01 / 04</div>
+              <div class="project-cat">AI / Computer Vision</div>
+              <h3 class="project-title">
+                TerraSeg — LULC Satellite Segmentation
+              </h3>
+              <p class="project-desc">
+                An advanced platform for Semantic Segmentation of satellite
+                imagery, categorizing pixels into classes like Buildings, Roads,
+                Water, and Vegetation for urban planning and environmental
+                monitoring.
+              </p>
+              <div class="project-tags">
+                <span>ResU-Net</span><span>TensorFlow</span><span>OpenCV</span
+                ><span>Streamlit</span>
+              </div>
+            </div>
+            <div class="project-visual">
+              <canvas class="proj-canvas" data-scene="particles"></canvas>
+              <img src="proj1.png" alt="TerraSeg" class="proj-img" />
+            </div>
+          </a>
+          <!-- Card 2 -->
+          <a href="https://github.com/bishaldutta11/deepfake-image-detection" target="_blank"
+            class="project-card"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              text-decoration: none;
+              color: inherit;
+            "
+          >
+            <div class="project-content">
+              <div class="project-num">02 / 04</div>
+              <div class="project-cat">Machine Learning</div>
+              <h3 class="project-title">Deepfake Image Detection</h3>
+              <p class="project-desc">
+                Developed a deep learning-based system to accurately classify
+                facial images as real or fake.
+              </p>
+              <div class="project-tags">
+                <span>CNN</span><span>TensorFlow</span><span>Keras</span
+                ><span>Streamlit</span>
+              </div>
+            </div>
+            <div class="project-visual">
+              <img src="proj2.png" alt="Deepfake Detection" class="proj-img" />
+            </div>
+          </a>
+          <!-- Card 3 -->
+          <a href="https://github.com/bishaldutta11/leaf-disease-" target="_blank"
+            class="project-card"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              text-decoration: none;
+              color: inherit;
+            "
+          >
+            <div class="project-content">
+              <div class="project-num">03 / 04</div>
+              <div class="project-cat">Deep Learning</div>
+              <h3 class="project-title">Plant Disease Prediction</h3>
+              <p class="project-desc">
+                Implemented a detection model using CNN architecture to classify
+                plant leaf images into various disease categories.
+              </p>
+              <div class="project-tags">
+                <span>CNN</span><span>TensorFlow</span><span>NumPy</span
+                ><span>Pandas</span>
+              </div>
+            </div>
+            <div class="project-visual">
+              <img src="proj3.png" alt="Plant Disease" class="proj-img" />
+            </div>
+          </a>
+          <!-- Card 4 -->
+          <a href="https://github.com/bishaldutta11/ecora" target="_blank"
+            class="project-card"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              text-decoration: none;
+              color: inherit;
+            "
+          >
+            <div class="project-content">
+              <div class="project-num">04 / 04</div>
+              <div class="project-cat">AI / IoT Full-Stack</div>
+              <h3 class="project-title">ECORA — Smart Waste Management</h3>
+              <p class="project-desc">
+                A smart waste system that uses AI-enabled dustbins to
+                automatically classify waste and IoT sensors for real-time
+                monitoring.
+              </p>
+              <div class="project-tags">
+                <span>React.js</span><span>Node.js</span><span>OpenCV</span
+                ><span>IoT</span>
+              </div>
+            </div>
+            <div class="project-visual">
+              <img src="proj4.png" alt="ECORA" class="proj-img" />
+            </div>
+          </a>
+        </div>
+        </div>
+    </section>
     <!-- SERVICES -->
     <section id="services">
-      <div class="desktop-only">
         <div class="section-header">
           <div>
             <div class="section-label">What I Do</div>
@@ -1860,84 +1823,10 @@
             </p>
           </div>
         </div>
-      </div>
-      <div class="mobile-only block" style="width: 100%">
-        <div class="section-header">
-          <div class="section-label">What I Do</div>
-          <h2 class="section-title">Services &<br />Expertise</h2>
-        </div>
-
-        <div class="mob-services">
-          <div class="mob-service-card">
-            <svg class="mob-service-icon" viewBox="0 0 48 48" fill="none">
-              <rect
-                x="4"
-                y="4"
-                width="40"
-                height="40"
-                rx="4"
-                stroke="currentColor"
-                stroke-width="2"
-              />
-              <path
-                d="M16 24l6 6 10-12"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
-            </svg>
-            <div class="mob-service-title">3D Experiences</div>
-            <p class="mob-service-desc">
-              WebGL and Three.js environments tailored for immersive web
-              presence.
-            </p>
-          </div>
-
-          <div class="mob-service-card">
-            <svg class="mob-service-icon" viewBox="0 0 48 48" fill="none">
-              <circle
-                cx="24"
-                cy="24"
-                r="18"
-                stroke="currentColor"
-                stroke-width="2"
-              />
-              <path
-                d="M24 6v6M24 36v6M6 24h6M36 24h6"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
-            </svg>
-            <div class="mob-service-title">AI / ML Dev</div>
-            <p class="mob-service-desc">
-              Intelligent, data-driven solutions using deep learning
-              architectures.
-            </p>
-          </div>
-
-          <div class="mob-service-card">
-            <svg class="mob-service-icon" viewBox="0 0 48 48" fill="none">
-              <path
-                d="M8 12h32M8 24h20M8 36h26"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
-            </svg>
-            <div class="mob-service-title">UI / UX Design</div>
-            <p class="mob-service-desc">
-              End-to-end design from wireframes to highly interactive
-              interfaces.
-            </p>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- CONTACT -->
     <section class="contact-section" id="contact">
-      <div class="desktop-only">
         <canvas class="contact-canvas" id="contact3d"></canvas>
         <div class="contact-inner">
           <div class="contact-label">✦ Open to opportunities</div>
@@ -1965,6 +1854,14 @@
               >+91 9064076209 →</a
             >
           </div>
+          
+          <div style="margin-top: 3.5rem; text-align: center;">
+            <a href="CV_Bishal.pdf" target="_blank" download class="btn-creative-resume">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Download Resume</span>
+            </a>
+          </div>
+
           <div class="social-row">
             <a
               href="https://github.com/bishaldutta11?tab=repositories"
@@ -1991,44 +1888,8 @@
               >WhatsApp</a
             >
           </div>
+          </div>
         </div>
-      </div>
-      <div class="mobile-only block" style="width: 100%">
-        <div class="section-label" style="color: var(--accent)">
-          ✦ Open to work
-        </div>
-        <h2 class="mob-contact-title">
-          Let's<br /><span class="ghost">Create</span><br />Together
-        </h2>
-        <p class="mob-contact-sub">
-          Have a project in mind? Let's build something extraordinary.
-        </p>
-
-        <div class="mob-contact-links">
-          <a href="mailto:bishaldutta661@gmail.com"
-            >bishaldutta661@gmail.com →</a
-          >
-          <a href="tel:+919064076209">+91 9064076209 →</a>
-        </div>
-
-        <div class="mob-socials">
-          <a
-            href="https://github.com/bishaldutta11?tab=repositories"
-            target="_blank"
-            >GitHub</a
-          >
-          <a
-            href="https://www.linkedin.com/in/bishal-dutta-26780a28b"
-            target="_blank"
-            >LinkedIn</a
-          >
-          <a
-            href="https://www.instagram.com/bishaldutta_11?igsh=MTJhODJlcm5raWdtaQ=="
-            target="_blank"
-            >Insta</a
-          >
-        </div>
-      </div>
     </section>
 
     <div class="bottom-nav mobile-only flex" style="display: flex">
@@ -2356,6 +2217,7 @@
       document
         .querySelectorAll('.proj-canvas[data-scene="particles"]')
         .forEach((c) => {
+          if (window.innerWidth <= 900) return;
           const ctx = c.getContext("2d");
           let W,
             H,
@@ -2668,7 +2530,10 @@
       if (themeToggle) {
         themeToggle.addEventListener("click", () => {
           const isDark = document.body.getAttribute("data-theme") === "dark";
-          document.body.setAttribute("data-theme", isDark ? "light" : "dark");
+          const newTheme = isDark ? "light" : "dark";
+          document.body.setAttribute("data-theme", newTheme);
+          document.documentElement.setAttribute("data-theme", newTheme);
+          localStorage.setItem("theme", newTheme);
         });
       }
 

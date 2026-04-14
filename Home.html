@@ -25,6 +25,15 @@
         --muted: #7a7165;
         --border: #d4cfc5;
         --card-bg: #fff;
+        --nav-bg: rgba(245, 240, 232, 0.88);
+      }
+
+      [data-theme="dark"] {
+        --ink: #f5f0e8;
+        --paper: #0d0d0d;
+        --card-bg: #1a1a1a;
+        --border: #333333;
+        --nav-bg: rgba(13, 13, 13, 0.88);
       }
 
       html {
@@ -61,7 +70,7 @@
         justify-content: space-between;
         padding: 0 clamp(1.5rem, 5vw, 4rem);
         height: 64px;
-        background: rgba(245, 240, 232, 0.88);
+        background: var(--nav-bg);
         backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--border);
       }
@@ -136,9 +145,9 @@
       }
 
       .nav-home-cube .bottom {
-        background: var(--ink);
-        color: var(--card-bg);
-        border: 1.5px solid var(--ink);
+        background: var(--accent);
+        color: #fff;
+        border: 1.5px solid var(--accent);
         transform: rotateX(-90deg) translateZ(19px);
         opacity: 0;
         transition: opacity 0.3s ease;
@@ -165,14 +174,16 @@
         border-radius: 100px;
         position: relative;
         overflow: hidden;
-        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+        transition:
+          transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          box-shadow 0.3s;
       }
 
       .nav-hire::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(120deg, var(--accent), var(--accent2), var(--accent));
+        background: #e84c2b;
         background-size: 200% 100%;
         opacity: 0;
         transition: opacity 0.3s;
@@ -185,8 +196,12 @@
       }
 
       @keyframes gradientMove {
-        0% { background-position: 100% 0; }
-        100% { background-position: -100% 0; }
+        0% {
+          background-position: 100% 0;
+        }
+        100% {
+          background-position: -100% 0;
+        }
       }
 
       .nav-hire span {
@@ -203,6 +218,7 @@
       .nav-hire:hover {
         transform: translateY(-3px);
         box-shadow: 0 10px 24px rgba(232, 76, 43, 0.25);
+        color: #fff;
       }
 
       .nav-hire:hover .sparkle {
@@ -572,6 +588,24 @@
         color: var(--paper);
       }
 
+      [data-theme="dark"] .contact-card {
+        background: rgba(0, 0, 0, 0.04);
+        border-color: rgba(0, 0, 0, 0.1);
+      }
+
+      [data-theme="dark"] .contact-card::after {
+        background: linear-gradient(
+          135deg,
+          transparent 60%,
+          rgba(0, 0, 0, 0.03)
+        );
+      }
+
+      [data-theme="dark"] .contact-card:hover {
+        background: rgba(0, 0, 0, 0.08);
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+
       /* ── FOOTER ── */
       footer {
         position: relative;
@@ -587,6 +621,60 @@
         font-size: 0.72rem;
         letter-spacing: 0.05em;
         color: var(--muted);
+      }
+
+      /* ── RESUME BUTTON ── */
+      .btn-creative-resume {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 1.1rem 2.5rem;
+        background: #fff;
+        color: #0d0d0d;
+        font-family: "DM Mono", monospace;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        border-radius: 50px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          box-shadow 0.3s ease;
+        box-shadow: 0 10px 24px rgba(232, 76, 43, 0.15);
+      }
+      .btn-creative-resume::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: #e84c2b;
+        background-size: 200% 100%;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 1;
+      }
+      .btn-creative-resume:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(232, 76, 43, 0.3);
+        color: #fff;
+      }
+      .btn-creative-resume:hover::before {
+        opacity: 1;
+        animation: gradientMoveBtn 2s linear infinite;
+      }
+      .btn-creative-resume > * {
+        position: relative;
+        z-index: 2;
+      }
+      @keyframes gradientMoveBtn {
+        0% {
+          background-position: 100% 0;
+        }
+        100% {
+          background-position: -100% 0;
+        }
       }
 
       /* ── ANIMATIONS ── */
@@ -610,14 +698,14 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(245, 240, 232, 0.88);
+        background: var(--nav-bg);
         backdrop-filter: blur(12px);
         border-top: 1px solid var(--border);
         display: flex;
         justify-content: space-around;
         padding: 0.8rem;
         z-index: 100;
-        box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
       }
       .bottom-nav a {
         text-decoration: none;
@@ -678,6 +766,13 @@
     </style>
   </head>
   <body>
+    <script>
+      (function () {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        document.body.setAttribute("data-theme", savedTheme);
+      })();
+    </script>
     <!-- NAV -->
     <nav>
       <a class="nav-brand" href="index.html">Bishal Dutta<span>.</span></a>
@@ -686,15 +781,24 @@
           <a href="index.html" class="nav-home-cube">
             <div class="cube">
               <div class="face front">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path>
                   <polyline points="9 22 9 12 15 12 15 22"></polyline>
                 </svg>
                 Home
               </div>
-              <div class="face bottom">
-                Return
-              </div>
+              <div class="face bottom">Return</div>
             </div>
           </a>
         </li>
@@ -703,6 +807,86 @@
             <span>Hire Me</span>
             <span class="sparkle">✦</span>
           </a>
+        </li>
+        <li>
+          <button
+            id="themeToggle"
+            class="theme-toggle-btn"
+            aria-label="Toggle dark mode"
+            style="
+              width: 58px;
+              height: 28px;
+              border-radius: 30px;
+              border: 1.5px solid var(--ink);
+              background: transparent;
+              position: relative;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding: 0 6px;
+              overflow: hidden;
+            "
+          >
+            <svg
+              class="sun"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              style="
+                width: 12px;
+                height: 12px;
+                fill: var(--ink);
+                opacity: 1;
+                z-index: 0;
+              "
+            >
+              <path
+                d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 000-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 000 1.41.996.996 0 001.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06z"
+              />
+            </svg>
+            <svg
+              class="moon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              style="
+                width: 12px;
+                height: 12px;
+                fill: var(--ink);
+                opacity: 0.5;
+                z-index: 0;
+              "
+            >
+              <path
+                d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3z"
+              />
+            </svg>
+            <div
+              class="theme-toggle-thumb"
+              style="
+                position: absolute;
+                top: 50%;
+                left: 4px;
+                transform: translateY(-50%);
+                width: 20px;
+                height: 20px;
+                background: var(--ink);
+                border-radius: 50%;
+                transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+                z-index: 1;
+              "
+            ></div>
+          </button>
+          <style>
+            [data-theme="dark"] .theme-toggle-btn .sun {
+              opacity: 0.5 !important;
+            }
+            [data-theme="dark"] .theme-toggle-btn .moon {
+              opacity: 1 !important;
+            }
+            [data-theme="dark"] .theme-toggle-thumb {
+              transform: translate(30px, -50%) !important;
+            }
+          </style>
         </li>
       </ul>
     </nav>
@@ -781,6 +965,31 @@
         want to say hello — reach out through any of the channels below. I'm
         always open to new collaborations.
       </p>
+
+      <div style="margin-bottom: 4rem">
+        <a
+          href="CV_Bishal.pdf"
+          target="_blank"
+          download
+          class="btn-creative-resume"
+        >
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Download Resume</span>
+        </a>
+      </div>
 
       <div class="contact-grid">
         <!-- GitHub -->
@@ -931,8 +1140,8 @@
     <!-- FOOTER -->
     <footer>
       <p>© 2026 Bishal Dutta</p>
-      <p>Code. Build. Innovate</p> 
-      <p>bishaldutta661@gmail.com</p> 
+      <p>Code. Build. Innovate</p>
+      <p>bishaldutta661@gmail.com</p>
     </footer>
 
     <!-- BOTTOM NAV (MOBILE ONLY) -->
@@ -946,10 +1155,24 @@
       </a>
       <a href="#hire">
         <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.36 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.61 5.61l.91-.91a2 2 0 0 1 2.11-.45c.907.34 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          <path
+            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.36 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.61 5.61l.91-.91a2 2 0 0 1 2.11-.45c.907.34 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+          ></path>
         </svg>
         Hire Me
       </a>
     </div>
+    <script>
+      const themeToggle = document.getElementById("themeToggle");
+      if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+          const isDark = document.body.getAttribute("data-theme") === "dark";
+          const newTheme = isDark ? "light" : "dark";
+          document.body.setAttribute("data-theme", newTheme);
+          document.documentElement.setAttribute("data-theme", newTheme);
+          localStorage.setItem("theme", newTheme);
+        });
+      }
+    </script>
   </body>
 </html>
