@@ -237,6 +237,8 @@
         background-size: 60px 60px;
         opacity: 0.5;
         animation: gridPulse 8s ease-in-out infinite;
+        transform: translateZ(0);
+        will-change: opacity;
       }
       @keyframes gridPulse {
         0%,
@@ -244,7 +246,7 @@
           opacity: 0.4;
         }
         50% {
-          opacity: 0.7;
+          opacity: 0.8;
         }
       }
 
@@ -378,51 +380,7 @@
         background: var(--muted);
       }
 
-      .scroll-hint {
-        position: absolute;
-        bottom: 2rem;
-        left: 0;
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-        font-family: "DM Mono", monospace;
-        font-size: 0.7rem;
-        color: var(--muted);
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        opacity: 0;
-        animation: fadeIn 1s 1.5s ease forwards;
-      }
-      .scroll-dot {
-        width: 8px;
-        height: 8px;
-        border: 1.5px solid var(--muted);
-        border-radius: 50%;
-        position: relative;
-      }
-      .scroll-dot::after {
-        content: "";
-        width: 3px;
-        height: 3px;
-        background: var(--muted);
-        border-radius: 50%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        animation: scrollBounce 1.5s infinite;
-      }
-      @keyframes scrollBounce {
-        0%,
-        100% {
-          transform: translate(-50%, -80%);
-          opacity: 1;
-        }
-        50% {
-          transform: translate(-50%, 20%);
-          opacity: 0.4;
-        }
-      }
+
 
       /* STATS STRIP */
       .stats-strip {
@@ -988,9 +946,12 @@
         }
         .hero {
           grid-template-columns: 1fr;
-          padding: 7rem 1.5rem 3rem;
-          gap: 3rem;
+          min-height: 100svh;
+          height: 100svh;
+          padding: 6rem 1.5rem 6rem;
+          gap: 2rem;
         }
+
         .hero-ctas {
           flex-direction: column;
           align-items: stretch;
@@ -1531,10 +1492,7 @@
             >Let's talk <span class="arrow">→</span></a
           >
         </div>
-        <div class="scroll-hint">
-          <div class="scroll-dot"></div>
-          Scroll to explore
-        </div>
+
       </div>
       <div class="hero-visual">
         <canvas id="hero3d"></canvas>
