@@ -1,0 +1,236 @@
+/* =========================================
+   GLOBAL.CSS
+   Unified variables, reset, fonts, and shared
+   cross-page components for the portfolio.
+========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ink: #0a0a0f;
+  --paper: #f5f3ee;
+  --accent: #ff3f00;
+  --accent2: #0057ff;
+  --muted: #8a8780;
+  --card-bg: #ffffff;
+  --border: rgba(10, 10, 15, 0.1);
+  --about-bg: #f0ede6;
+  --nav-bg: rgba(245, 243, 238, 0.85);
+}
+
+[data-theme="dark"] {
+  --ink: #f5f3ee;
+  --paper: #121315;
+  --card-bg: #1a1b1e;
+  --border: rgba(245, 243, 238, 0.1);
+  --about-bg: #121315;
+  --nav-bg: rgba(18, 19, 21, 0.85);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Syne", sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  /* Space for bottom nav on mobile */
+  padding-bottom: 0px; 
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 60px; /* Space for bottom nav */
+  }
+}
+
+/* ─── THEME TOGGLE ─── */
+.theme-toggle-btn {
+  width: 58px;
+  height: 28px;
+  border-radius: 30px;
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  transition: border-color 0.3s ease;
+  overflow: hidden;
+}
+.theme-toggle-btn:hover {
+  border-color: var(--accent);
+}
+.theme-toggle-btn svg {
+  width: 12px;
+  height: 12px;
+  fill: var(--ink);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+.theme-toggle-btn .sun {
+  opacity: 1;
+}
+[data-theme="dark"] .theme-toggle-btn .sun {
+  opacity: 0.5;
+}
+[data-theme="dark"] .theme-toggle-btn .moon {
+  opacity: 1;
+}
+.theme-toggle-thumb {
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: var(--ink);
+  border-radius: 50%;
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+  z-index: 1;
+}
+[data-theme="dark"] .theme-toggle-thumb {
+  transform: translate(30px, -50%);
+}
+
+/* FOOTER */
+footer {
+  padding: 0.5rem;
+  text-align: center;
+  font-family: "DM Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  background: var(--paper);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.footer-copy {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+footer span {
+  color: var(--accent);
+}
+
+/* RESUME BUTTON */
+.btn-creative-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 2.5rem;
+  background: #f5f3ee;
+  color: #0a0a0f;
+  font-family: "DM Mono", monospace;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  box-shadow: 0 10px 24px rgba(255, 63, 0, 0.15);
+}
+.btn-creative-resume::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+.btn-creative-resume:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(255, 63, 0, 0.3);
+  color: #f5f3ee;
+}
+.btn-creative-resume:hover::before {
+  opacity: 1;
+}
+.btn-creative-resume > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* BOTTOM NAV (MOBILE) */
+.mobile-only {
+  display: none !important;
+}
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--paper);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  padding: 0.8rem;
+  z-index: 100;
+}
+[data-theme="dark"] .bottom-nav {
+  background: var(--card-bg);
+}
+.bottom-nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-family: "DM Mono", monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color 0.2s;
+}
+.bottom-nav a:hover,
+.bottom-nav a:active {
+  color: var(--ink);
+}
+.bottom-nav a svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+}
+
+@media (max-width: 768px) {
+  .mobile-only {
+    display: flex !important;
+  }
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
