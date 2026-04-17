@@ -22,7 +22,9 @@
     if (themeToggle) {
       themeToggle.addEventListener("click", () => {
         const currentTheme =
-          document.body?.getAttribute("data-theme") === "dark" ? "dark" : "light";
+          document.body?.getAttribute("data-theme") === "dark"
+            ? "dark"
+            : "light";
         const nextTheme = currentTheme === "dark" ? "light" : "dark";
 
         syncTheme(nextTheme);

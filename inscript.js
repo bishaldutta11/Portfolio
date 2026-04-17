@@ -113,8 +113,10 @@ document
       ctx.fillRect(0, scanY * height - 30, width, 40);
 
       particles.forEach((particle) => {
-        particle.x = particle.ox + Math.sin(frame * 0.01 + particle.z * 10) * 0.01;
-        particle.y = particle.oy + Math.cos(frame * 0.01 + particle.z * 10) * 0.01;
+        particle.x =
+          particle.ox + Math.sin(frame * 0.01 + particle.z * 10) * 0.01;
+        particle.y =
+          particle.oy + Math.cos(frame * 0.01 + particle.z * 10) * 0.01;
 
         if (particle.x < 0) particle.x += 1;
         if (particle.x > 1) particle.x -= 1;
@@ -124,7 +126,8 @@ document
         const distToScan = Math.abs(particle.y - scanY);
         let opacity = 0.15;
         let sizeMultiplier = 1;
-        const color = particle.z > 0.5 ? "rgba(0, 255, 128, " : "rgba(0, 150, 255, ";
+        const color =
+          particle.z > 0.5 ? "rgba(0, 255, 128, " : "rgba(0, 150, 255, ";
 
         if (distToScan < 0.15) {
           opacity = 1 - (distToScan / 0.15) * 0.5;
@@ -157,7 +160,8 @@ document
             ctx.beginPath();
             ctx.moveTo(p1.x * width, p1.y * height);
             ctx.lineTo(p2.x * width, p2.y * height);
-            ctx.strokeStyle = "rgba(0, 255, 128, " + 0.3 * (1 - dist / 0.06) + ")";
+            ctx.strokeStyle =
+              "rgba(0, 255, 128, " + 0.3 * (1 - dist / 0.06) + ")";
             ctx.stroke();
           }
         }

@@ -6,5 +6,8 @@
   "scripts": {
     "start": "python -m http.server 8000",
     "check": "node tools/check-static-site.js"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.3"
   }
 }
