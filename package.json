@@ -1,0 +1,10 @@
+{
+  "name": "bishal-dutta-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static portfolio site for Bishal Dutta.",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "check": "node tools/check-static-site.js"
+  }
+}
