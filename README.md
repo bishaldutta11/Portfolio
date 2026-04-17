@@ -23,7 +23,7 @@
 
 ## 📖 Overview
 
-Welcome to the repository for my personal portfolio! This static web application serves as a dynamic, interactive showcase of my technical projects, creative web development skills, and professional resume. 
+Welcome to the repository for my personal portfolio! This static web application serves as a dynamic, interactive showcase of my technical projects, creative web development skills, and professional resume.
 
 Built with **plain HTML, CSS, and Vanilla JavaScript**, the site delivers high performance, zero framework overhead, and sophisticated visual effects (like Canvas-based particle scanning) to create a premium user experience.
 
@@ -71,6 +71,7 @@ bishal-dutta-portfolio/
 It is straightforward to spin this project up on your local machine to explore the code or propose changes.
 
 **1. Clone the repository**
+
 ```bash
 git clone https://github.com/bishaldutta11/Portfolio.git
 cd Portfolio
@@ -78,10 +79,12 @@ cd Portfolio
 
 **2. Start a local server**
 You can launch an immediate preview server using Python via npm:
+
 ```bash
 npm run start
 ```
-*(This will trigger `python -m http.server 8000`)*
+
+_(This will trigger `python -m http.server 8000`)_
 
 **3. Preview in Browser**
 Visit `http://localhost:8000` in your web browser.
@@ -104,11 +107,13 @@ The publishing pipeline of this project is 100% automated via **GitHub Actions**
 ## 📬 Let's Connect
 
 Currently open for freelance opportunities and full-time inquiries!
+
 - **Email:** [bishaldutta661@gmail.com](mailto:bishaldutta661@gmail.com)
 - **Phone:** +91 9064076209
 - **GitHub:** [@bishaldutta11](https://github.com/bishaldutta11)
 
 ---
+
 <div align="center">
   <p>&copy; 2026 Bishal Dutta. Code. Build. Innovate.</p>
 </div>
