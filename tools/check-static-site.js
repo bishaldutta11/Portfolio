@@ -3,7 +3,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const htmlFiles = ["index.html", "Home.html"];
-const assetPattern = /(?:src|href|content)="([^"]+)"/g;
+const assetPattern = /(?:src|href)="([^"]+)"/g;
 const targetBlankPattern = /<a\b[^>]*target="_blank"[^>]*>/gi;
 const relPattern = /\brel="([^"]*)"/i;
 
